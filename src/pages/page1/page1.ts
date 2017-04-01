@@ -45,7 +45,7 @@ export class Page1 {
     }
 
 	setCarrito(carrito){
-		if(this.api.cliente.id != carrito.cliente_id){
+		if( this.api.cliente == undefined || this.api.cliente.id != carrito.cliente_id){
 			var cliente = this.api.clientes.find(cli=>{
 				return cli.id == carrito.cliente_id;
 			});

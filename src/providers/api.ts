@@ -4,7 +4,7 @@ import {Injectable} from '@angular/core';
 // import {Observable} from 'rxjs/Observable';
 import  {Storage} from '@ionic/storage';
 import 'rxjs/add/operator/map';
-import * as  _ from 'lodash';
+// import * as  _ from 'lodash';
 @Injectable()
 export class Api {
     data:any={};

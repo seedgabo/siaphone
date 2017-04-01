@@ -1,0 +1,41 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>Carrito</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+ <h3>{{api.cliente.NOM_TER}}</h3>
+  <ion-list>
+	  <ion-item-sliding *ngFor="let item of api.carrito.items; let i=index">
+		  <ion-item>
+				{{ item.NOM_REF }}
+				<ion-badge item-right>{{item.cantidad}}</ion-badge>
+		  </ion-item>
+		  <ion-item-options side="right">
+				<button ion-button color="danger" icon-only (click)="api.removeFromCart(i)">
+					<ion-icon name="trash"></ion-icon>
+				</button>
+		  </ion-item-options>
+	  </ion-item-sliding>
+  </ion-list>
+</ion-content>
+<ion-footer>
+	<ion-grid>
+		<ion-row>	
+			<ion-col>
+				<button ion-button outline color="dark" full >
+					Limpiar
+				</button>
+			</ion-col>
+			<ion-col>
+				<button ion-button color="primary" full>
+					Procesar
+				</button>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+</ion-footer>

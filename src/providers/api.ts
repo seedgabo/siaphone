@@ -105,6 +105,8 @@ export class Api {
         console.log('Cliente ' + cliente.NOM_TER + 'seleccionado' );
 		if (this.getCarritos().length > 0){
 			this.setCarrito(this.getCarritos()[0]);
+		}else{
+			this.createCarrito(this.cliente.id);
 		}
     }
 
@@ -156,7 +158,7 @@ export class Api {
         });
     }
 
-    addToCart(producto,cantidad:number,index){
+    addToCart(producto,cantidad:number){
         producto.neto = producto.neto ? 1 : 0;
         producto.observacion = producto.observacion != undefined ? producto.observacion : '';
 		var item = {
@@ -170,10 +172,24 @@ export class Api {
 			neto: producto.neto,
 			observacion: producto.observacion
 		}
-		this.carritos[index].items.push(item);
+		var index = this.carrito.items.findIndex((prod)=>{
+			return item.COD_REF  == prod.COD_REF
+		});
+
+		if( index > -1 && index != undefined){
+			this.carrito.items[index] = item;
+			this.storage.set("carritos", JSON.stringify(this.carritos));
+			return "actualizado";
+		}
+		this.carrito.items.push(item);
 		this.storage.set("carritos", JSON.stringify(this.carritos));
-		return item;
+		return "agregado";
     }
+
+	removeFromCart(index){
+		this.carrito.items.splice(index, 1);
+		this.storage.set("carritos", JSON.stringify(this.carritos));
+	}
 
     getCarrito(index){
 		JSON.parse(this.carritos[index].data);

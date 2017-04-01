@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 
 import {ToastController, LoadingController,  NavController,  AlertController} from 'ionic-angular';
 import { Api } from "../../providers/api";
-import { BarcodeScanner } from "@ionic-native/barcode-scanner";
 import { LoginPage } from "../login/login";
 
 @Component({

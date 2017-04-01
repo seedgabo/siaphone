@@ -1,0 +1,35 @@
+<ion-header>
+
+	<ion-navbar color="primary">
+		<ion-title>login</ion-title>
+	</ion-navbar>
+</ion-header>
+
+
+<ion-content padding class="getting-started">
+	<img src="assets/img/logo.png" class="logo">
+	<ion-list>
+		<ion-item>
+			<ion-label floating> URL </ion-label>
+			<ion-input [(ngModel)]="api.data.url"></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label floating> Usuario</ion-label>
+			<ion-input [(ngModel)]="api.data.username"></ion-input>
+		</ion-item>
+
+		<ion-item>
+			<ion-label floating> Contraseña </ion-label>
+			<ion-input [(ngModel)]="api.data.password" type="password"></ion-input>
+		</ion-item>
+
+		<button ion-button large color="primary" block (click)="doLogin()">
+				Iniciar Sesión
+			</button>
+
+		<button ion-button color="secondary" outline block (click)="scanCode()">
+				Escanear QR
+			</button>
+
+	</ion-list>
+</ion-content>

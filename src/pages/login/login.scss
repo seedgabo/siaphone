@@ -1,0 +1,20 @@
+page-login {
+.getting-started {
+    background-image: url(../assets/img/tecladoblanco.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    vertical-align: bottom;
+    ion-list{
+		ion-item{
+			background: rgba(255,255,255,.3);
+		}
+		background: transparent;
+    }
+    .logo{
+        width: 70%;
+        display:block;
+        margin: 0 auto;
+    }
+
+}
+}

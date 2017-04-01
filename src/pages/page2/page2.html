@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Productos</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+	<ion-searchbar [(ngModel)]="query" (ionInput)="getProductos()">
+	</ion-searchbar>
+  <ion-list>
+    <button ion-item *ngFor="let producto of productos" (click)="verProducto(producto)">
+		<ion-thumbnail item-left *ngIf="mostrarImagenes && api.offline">
+			<img [src]="imagenLocal(producto)"/>
+		</ion-thumbnail>
+		<ion-thumbnail item-left *ngIf="mostrarImagenes && !api.offline">
+			<img [src]="producto.imagen"/>
+		</ion-thumbnail>
+		<h2>{{producto.NOM_REF}}</h2>
+		<p>{{producto.VAL_REF}} $ </p>
+		<small>{{producto.EXISTENCIA}} disponibles</small> |
+		<small>{{producto.SALD_PED}} pedidos</small>
+		<div class="item-note" item-right>
+			{{producto.COD_REF}}
+		</div>
+    </button>
+  </ion-list>
+</ion-content>

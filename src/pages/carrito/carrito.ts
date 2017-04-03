@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import {LoadingController, AlertController,  NavController,   NavParams} from 'ionic-angular';
 import { Api } from "../../providers/api";
 @Component({
   selector: 'page-carrito',
@@ -7,10 +7,31 @@ import { Api } from "../../providers/api";
 })
 export class CarritoPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public api:Api) {}
+  constructor(public navCtrl: NavController, public navParams: NavParams, public api:Api, public alert:AlertController, public loading:LoadingController) {}
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CarritoPage');
   }
 
+  procesarCarrito(){
+	  var loader = this.loading.create({content:"procesando carrito"});
+	  loader.present();
+	  this.api.sendCarrito(this.api.carrito).then(()=>{
+		 loader.dismiss();
+		 this.api.deleteCarrito();
+	  }).catch((err)=>{
+		  loader.dismiss().then(()=>{
+			  this.alert.create({message:"No se puedo procesar el carrito", buttons:["Ok"]}).present();
+		  })
+			console.log(err);
+	  })
+  }
+
+  clearCarrito(){
+	  this.api.carrito.items = [];
+	  this.api.storage.set("carritos", JSON.stringify(this.api.carritos));
+  }
+
+
 }
+

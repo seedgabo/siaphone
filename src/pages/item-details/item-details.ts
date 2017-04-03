@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {ViewController, AlertController,  ToastController,  NavController,  NavParams} from 'ionic-angular';
+import {Platform, ViewController,  AlertController,   ToastController,   NavController,   NavParams} from 'ionic-angular';
 import { Api } from "../../providers/api";
 declare var cordova;
 @Component({
@@ -9,7 +9,7 @@ declare var cordova;
 export class ItemDetailsPage {	
 	producto:any = {}
 	pedidos = 1;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public api:Api, public alert:AlertController, public toast:ToastController,
+  constructor(public platform:Platform,public navCtrl: NavController, public navParams: NavParams, public api:Api, public alert:AlertController, public toast:ToastController,
    public viewctrl:ViewController) {
 	  this.producto = this.navParams.get("producto");
   }
@@ -56,8 +56,13 @@ export class ItemDetailsPage {
     }
 
     imagenLocal(producto:any){
-        if( typeof cordova != 'undefined' )
-            return cordova.file.externalApplicationStorageDirectory + this.api.empresa + "/productos/" + producto.COD_REF.trim()  + ".jpg";
+		if(this.platform.is("cordova"))
+		{
+        	return cordova.file.externalApplicationStorageDirectory + this.api.empresa + "/productos/" + producto.COD_REF.trim()  + ".jpg";
+		}
+		else{
+			return producto.imagen
+		}
     }
 
 }

@@ -1,48 +1,63 @@
 <ion-header>
-    <ion-navbar color="primary">
-        <button menuToggle ion-button *ngIf="!producto">
+	<ion-navbar color="primary">
+		<button menuToggle ion-button *ngIf="!producto">
             <ion-icon name="menu"></ion-icon>
         </button>
-        <ion-title># {{producto.NOM_REF}}</ion-title>
-        <ion-buttons end>
-            <button ion-button (click)="dismiss()" *ngIf="modal">
+		<ion-title># {{producto.NOM_REF}}</ion-title>
+		<ion-buttons end>
+			<button ion-button (click)="dismiss()" *ngIf="modal">
                 <ion-icon name="close"></ion-icon>
             </button>
 			<button ion-button (click)="editprecio()">
                 <ion-icon name="create"></ion-icon>
             </button>
-        </ion-buttons>
-    </ion-navbar>
+		</ion-buttons>
+	</ion-navbar>
 </ion-header>
 
 <ion-content class="card-background-page">
-    <ion-card>
-        <img src="{{producto.imagen}}" alt="Imagen de producto" *ngIf="!api.offline">
-        <img src="{{imagenLocal(producto)}}" alt="Imagen de producto" *ngIf="api.offline">
+	<ion-card>
+		<ion-grid>
+			<ion-row>
+				<ion-col col-6 col-sm-12>
+					<img src="{{producto.imagen}}" alt="Imagen de producto" *ngIf="!api.offline">
+					<img src="{{imagenLocal(producto)}}" alt="Imagen de producto" *ngIf="api.offline">
 
-        <ion-card-content>
-            <ion-card-header>{{producto.NOM_REF}}</ion-card-header>
-            <p>
-                <strong>Codigo:     </strong>{{producto.COD_REF}} <br>
-                <strong>Precio:     </strong>{{producto.VAL_REF}} <br>
-                <strong>Pedidos:    </strong>{{producto.SALD_PED}}<br>
-                <strong>Existencia: </strong>{{producto.EXISTENCIA}}
-            </p>
-            <ion-item>
-              <ion-label>Neto?</ion-label>
-              <ion-toggle [(ngModel)]="producto.neto" value="1"></ion-toggle>
-            </ion-item>
-            <ion-item>
-                <ion-label floating>observación</ion-label>
-                <ion-textarea [(ngModel)]="producto.observacion"></ion-textarea>
-            </ion-item>
-            <ion-row>
-                <ion-col ion-button light (click)= "pedidos= pedidos + 1"><ion-icon name="arrow-dropup"></ion-icon></ion-col>
-                <ion-col ion-item class="center"><ion-input [(ngModel)]="pedidos" type="number"></ion-input></ion-col>
-                <ion-col ion-button light (click)= "pedidos= pedidos - 1"><ion-icon name="arrow-dropdown"></ion-icon></ion-col>
-            </ion-row>
-        </ion-card-content>
-    </ion-card>
+				</ion-col>
+				<ion-col col-6 col-sm-12>
+					<ion-card-content>
+						<ion-card-header>{{producto.NOM_REF}}</ion-card-header>
+						<p>
+							<strong>Codigo:     </strong>{{producto.COD_REF}} <br>
+							<strong>Precio:     </strong>{{producto.VAL_REF}} <br>
+							<strong>Pedidos:    </strong>{{producto.SALD_PED}}<br>
+							<strong>Existencia: </strong>{{producto.EXISTENCIA}}
+						</p>
+						<ion-item>
+							<ion-label>Neto?</ion-label>
+							<ion-toggle [(ngModel)]="producto.neto" value="1"></ion-toggle>
+						</ion-item>
+						<ion-item>
+							<ion-label floating>observación</ion-label>
+							<ion-textarea [(ngModel)]="producto.observacion"></ion-textarea>
+						</ion-item>
+						<ion-row>
+							<ion-col ion-button light (click)="pedidos= pedidos + 1">
+								<ion-icon name="arrow-dropup"></ion-icon>
+							</ion-col>
+							<ion-col ion-item class="center">
+								<ion-input [(ngModel)]="pedidos" type="number"></ion-input>
+							</ion-col>
+							<ion-col ion-button light (click)="pedidos= pedidos - 1">
+								<ion-icon name="arrow-dropdown"></ion-icon>
+							</ion-col>
+						</ion-row>
+					</ion-card-content>
+				</ion-col>
+			</ion-row>
+		</ion-grid>
+
+	</ion-card>
 </ion-content>
 <ion-footer>
 	<button ion-button icon-left (click)="agregarAlCarrito()" full> 

@@ -220,7 +220,7 @@ export class Api {
     sendCarrito(carrito){
         let headers= this.setHeaders();
         return new Promise((resolve,reject) => {
-            this.http.post(this.data.url + "api/"+ this.empresa +"/procesarCarrito", JSON.stringify(carrito) ,{headers : headers})
+            this.http.post(this.data.url + "api/"+ this.empresa +"/procesarCarrito", carrito.items ,{headers : headers})
             .map(res => res.json())
             .subscribe(data => {
                 resolve(data);
@@ -230,7 +230,12 @@ export class Api {
         });
     }
 
-	deleteCarrito(index){
+	deleteCarrito(index:any = null){
+		if(index == null){
+			index = this.carritos.findIndex((carrito)=>{
+				 return this.carrito == carrito;
+			});
+		}
 		var deleteds = this.carritos.splice(index, 1);
 		this.storage.set("carritos",JSON.stringify(this.carritos));
 		return deleteds;

@@ -27,12 +27,12 @@
 	<ion-grid>
 		<ion-row>	
 			<ion-col>
-				<button ion-button outline color="dark" full >
+				<button ion-button outline color="dark" full (click)="clearCarrito()">
 					Limpiar
 				</button>
 			</ion-col>
 			<ion-col>
-				<button ion-button color="primary" full>
+				<button ion-button color="primary" full (click)="procesarCarrito()">
 					Procesar
 				</button>
 			</ion-col>

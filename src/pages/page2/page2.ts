@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import {ActionSheetController, AlertController,  NavController,   NavParams} from 'ionic-angular';
+import {Platform, ActionSheetController,  AlertController,   NavController,    NavParams} from 'ionic-angular';
 import { Api } from "../../providers/api";
 import { ItemDetailsPage } from "../item-details/item-details";
 declare var cordova:any;
@@ -16,7 +16,7 @@ export class Page2 {
     procesando:boolean = false;
     query= "";
     productos:Array<any>;
-  constructor(public nav: NavController, public navParams: NavParams, public api:Api, public alert:AlertController, public actionsheet:ActionSheetController) {
+  constructor(public platform:Platform,public nav: NavController, public navParams: NavParams, public api:Api, public alert:AlertController, public actionsheet:ActionSheetController) {
   }
     ionViewDidEnter(){
         window.setTimeout(()=>{
@@ -132,6 +132,12 @@ export class Page2 {
     }
 
     imagenLocal(producto:any){
-        return cordova.file.externalApplicationStorageDirectory + this.api.empresa + "/productos/" + producto.COD_REF.trim()  + ".jpg";
+		if(this.platform.is("cordova"))
+		{
+        	return cordova.file.externalApplicationStorageDirectory + this.api.empresa + "/productos/" + producto.COD_REF.trim()  + ".jpg";
+		}
+		else{
+			return producto.imagen
+		}
     }
 }

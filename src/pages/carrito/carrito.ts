@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {LoadingController, AlertController,  NavController,   NavParams} from 'ionic-angular';
+import {ToastController, LoadingController,  AlertController,   NavController,    NavParams} from 'ionic-angular';
 import { Api } from "../../providers/api";
 @Component({
   selector: 'page-carrito',
@@ -7,7 +7,8 @@ import { Api } from "../../providers/api";
 })
 export class CarritoPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public api:Api, public alert:AlertController, public loading:LoadingController) {}
+  constructor(public navCtrl: NavController, public navParams: NavParams, public api:Api, public alert:AlertController, 
+  public loading:LoadingController, public toast:ToastController) {}
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CarritoPage');
@@ -16,8 +17,10 @@ export class CarritoPage {
   procesarCarrito(){
 	  var loader = this.loading.create({content:"procesando carrito"});
 	  loader.present();
+	  console.log(this.api.carrito);
 	  this.api.sendCarrito(this.api.carrito).then(()=>{
 		 loader.dismiss();
+		 this.toast.create({duration:3000, message: "Carrito Procesado"}).present();
 		 this.api.deleteCarrito();
 	  }).catch((err)=>{
 		  loader.dismiss().then(()=>{

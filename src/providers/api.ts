@@ -163,11 +163,11 @@ export class Api {
         producto.observacion = producto.observacion != undefined ? producto.observacion : '';
 		var item = {
 			COD_REF : producto.COD_REF,
-			COD_CLI: producto.COD_TER,
+			COD_CLI: this.cliente.COD_TER,
 			NOM_REF: producto.NOM_REF,
 			NOM_TER: producto.NOM_TER,
 			empresa_id: this.empresa,
-			VAL_REF: producto.VAL_REF,
+			VAL_REF:  parseInt(producto.VAL_REF),
 			cantidad: cantidad,
 			neto: producto.neto,
 			observacion: producto.observacion
@@ -236,6 +236,7 @@ export class Api {
 				 return this.carrito == carrito;
 			});
 		}
+		this.carrito = [];
 		var deleteds = this.carritos.splice(index, 1);
 		this.storage.set("carritos",JSON.stringify(this.carritos));
 		return deleteds;

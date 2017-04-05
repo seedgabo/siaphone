@@ -1,30 +1,33 @@
 <ion-header>
 
-  <ion-navbar color="primary">
-    <ion-title>Carrito</ion-title>
-  </ion-navbar>
+	<ion-navbar color="primary">
+		<button ion-button menuToggle>
+     	 <ion-icon name="menu"></ion-icon>
+    	</button>
+		<ion-title>Carrito</ion-title>
+	</ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
- <h3>{{api.cliente.NOM_TER}}</h3>
-  <ion-list>
-	  <ion-item-sliding *ngFor="let item of api.carrito.items; let i=index">
-		  <ion-item>
+	<h3>{{api.cliente.NOM_TER}}</h3>
+	<ion-list>
+		<ion-item-sliding *ngFor="let item of api.carrito.items; let i=index">
+			<ion-item>
 				{{ item.NOM_REF }}
 				<p><b>Cantidad:</b> {{ item.cantidad}}</p>
 				<p><b>Precio:</b> {{ item.VAL_REF}}</p>
 				<ion-badge item-right>{{item.cantidad * item.VAL_REF}}</ion-badge>
 
-		  </ion-item>
-		  <ion-item-options side="right">
+			</ion-item>
+			<ion-item-options side="right">
 				<button ion-button color="danger" icon-only (click)="api.removeFromCart(i)">
 					<ion-icon name="trash"></ion-icon>
 				</button>
-		  </ion-item-options>
-	  </ion-item-sliding>
-  </ion-list>
+			</ion-item-options>
+		</ion-item-sliding>
+	</ion-list>
 </ion-content>
 <ion-footer>
 	<ion-toolbar>
@@ -33,7 +36,7 @@
 		</div>
 	</ion-toolbar>
 	<ion-grid>
-		<ion-row>	
+		<ion-row>
 			<ion-col>
 				<button ion-button outline color="dark" full (click)="clearCarrito()">
 					Limpiar

@@ -11,11 +11,12 @@
 		</button>
 	</ion-buttons>
   </ion-navbar>
+  <ion-toolbar>
+	<ion-searchbar [(ngModel)]="query" (ionInput)="getProductos()"></ion-searchbar>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content>
-	<ion-searchbar [(ngModel)]="query" (ionInput)="getProductos()">
-	</ion-searchbar>
 	<ion-list [virtualScroll]="productos"  [approxItemHeight]="mostrarImagenes ? '98px' : '87px'">
 		<button ion-item *virtualItem="let producto" (click)="verProducto(producto)">
 			<ion-thumbnail item-left *ngIf="mostrarImagenes && api.offline">

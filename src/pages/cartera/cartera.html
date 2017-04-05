@@ -1,6 +1,6 @@
 <ion-header>
     <ion-navbar color="primary">
-        <button menuToggle>
+        <button ion-button menuToggle>
             <ion-icon name="menu"></ion-icon>
         </button>
         <ion-title>Cartera</ion-title>
@@ -14,12 +14,12 @@
     <div class="text-center" text-center>
         <ion-spinner color="primary" *ngIf="procesando"></ion-spinner>
     </div>
-    <ion-list [virtualScroll]="cartera">
+    <ion-list [virtualScroll]="cartera" approxItemHeight="88px">
         <button ion-item *virtualItem="let cliente" (click)="verCarteraCliente(cliente)">
             <h2>{{cliente.NOM_TER}}</h2>
             <h3>{{cliente.COD_TER}}</h3>
             <small><b>Saldo:</b> {{cliente.SALDO | currency:'USD':true }}</small>
-            <small color="danger" item-right><b>TOTAL:</b> {{cliente.TOTAL | currency:'USD':true }}</small>
+            <small color="danger" ion-text item-right><b>TOTAL:</b> {{cliente.TOTAL | currency:'USD':true }}</small>
         </button>
     </ion-list>
 </ion-content>

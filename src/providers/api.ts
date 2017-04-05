@@ -21,7 +21,7 @@ export class Api {
     secure_code=false;
 	carritos:Array<any>= [];
 	carrito: any;
-	prefs = { verTotal : true };
+	prefs = { verTotal : true, verCarteraEmpresas: true };
     constructor(public http: Http, public storage:Storage) {
         this.initVar();
     }

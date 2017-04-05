@@ -8,6 +8,8 @@ import { Page2 } from '../pages/page2/page2';
 import  { ItemDetailsPage} from '../pages/item-details/item-details'
 import  { CarritoPage} from '../pages/carrito/carrito'
 import { PreferenciasPage} from '../pages/preferencias/preferencias';
+import { CarteraPage } from '../pages/cartera/cartera';
+import { CarteraPorClientePage } from '../pages/cartera-por-cliente/cartera-por-cliente';
 
 import { IonicStorageModule } from '@ionic/storage';
 import {MomentModule} from 'angular2-moment';
@@ -30,7 +32,9 @@ moment.locale("es");
     Page2,
 	ItemDetailsPage,
 	CarritoPage,
-	PreferenciasPage
+	PreferenciasPage,
+	CarteraPage,
+	CarteraPorClientePage
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -45,7 +49,9 @@ moment.locale("es");
     Page2,
 	ItemDetailsPage,
 	CarritoPage,
-	PreferenciasPage
+	PreferenciasPage,
+	CarteraPage,
+	CarteraPorClientePage
   ],
   providers: [
     StatusBar,SplashScreen,BarcodeScanner,Transfer,

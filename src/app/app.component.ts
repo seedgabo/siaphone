@@ -8,6 +8,7 @@ import { LoginPage } from "../pages/login/login";
 import { CarritoPage } from "../pages/carrito/carrito";
 import { PreferenciasPage } from "../pages/preferencias/preferencias";
 import { Api } from "../providers/api";
+import { CarteraPage } from "../pages/cartera/cartera";
 
 
 @Component({
@@ -36,6 +37,7 @@ export class MyApp {
 			{ title: 'Home', component: Page1 , icon:"home" , disabled: false},
 			{ title: 'Productos', component: Page2, icon: 'pricetags', disabled: true},
 			{ title: 'Carrito', component: CarritoPage, icon:'cart' , disabled: true},
+			{ title: 'Cartera', component: CarteraPage, icon:'briefcase' , disabled: false},
 			{ title: 'Preferencias', component: PreferenciasPage, icon:'cog', disabled:false },
 		];
 

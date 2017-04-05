@@ -83,7 +83,7 @@ export class Page2 {
         }
         else{
             let response = this.productos.filter((prod)=>{
-                return prod.COD_REF.trim() ==  this.query;
+                return prod.COD_REF.trim().toLowerCase().indexOf(this.query) > -1 || prod.NOM_REF.trim().toLowerCase().indexOf(this.query) > -1 ;
             });
             if ( response.length == 1)
             {

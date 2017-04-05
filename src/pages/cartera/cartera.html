@@ -1,0 +1,25 @@
+<ion-header>
+    <ion-navbar primary>
+        <button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>Cartera</ion-title>
+    </ion-navbar>
+    <ion-toolbar>
+        <ion-searchbar [(ngModel)]="query" debounce="700" placeholder="Buscar..." (ionInput)="getCartera()"></ion-searchbar>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="cartera">
+    <div class="text-center" text-center>
+        <ion-spinner primary *ngIf="procesando"></ion-spinner>
+    </div>
+    <ion-list [virtualScroll]="cartera">
+        <button ion-item *virtualItem="let cliente" (click)="verCarteraCliente(cliente)">
+            <h2>{{cliente.NOM_TER}}</h2>
+            <h3>{{cliente.COD_TER}}</h3>
+            <small><b>Saldo:</b> {{cliente.SALDO | currency:'USD':true }}</small>
+            <small danger item-right><b>TOTAL:</b> {{cliente.TOTAL | currency:'USD':true }}</small>
+        </button>
+    </ion-list>
+</ion-content>

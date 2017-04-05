@@ -1,5 +1,5 @@
 <ion-header>
-    <ion-navbar primary>
+    <ion-navbar color="primary">
         <ion-title>{{cliente.NOM_TER}}</ion-title>
     </ion-navbar>
 </ion-header>
@@ -17,22 +17,22 @@
 
             <ion-list>
                 <ion-item>
-                    <b primary># Factura:</b>  <span item-right>{{cliente.NUM_TRN}}</span>
+                    <b color="primary" ion-text># Factura:</b>  <span item-right>{{cliente.NUM_TRN}}</span>
                 </ion-item>
                 <ion-item>
-                    <b primary>Fecha de Documento:</b>  <span item-right>{{cliente.FEC_DOC}}</span>
+                    <b color="primary" ion-text>Fecha de Documento:</b>  <span item-right>{{cliente.FEC_DOC}}</span>
                 </ion-item>
                 <ion-item>
-                    <b primary>Fecha de Vencimiento:</b>  <span item-right>{{cliente.FEC_VEN}}</span>
+                    <b color="primary" ion-text>Fecha de Vencimiento:</b>  <span item-right>{{cliente.FEC_VEN}}</span>
                 </ion-item>
                 <ion-item>
-                    <b primary>Dias:</b>  <span  item-right>{{ cliente.dias }}</span>
+                    <b color="primary" ion-text>Dias:</b>  <span  item-right>{{ cliente.dias }}</span>
                 </ion-item>
                 <ion-item>
-                    <b primary>Valor:</b>  <span item-right>{{ cliente.VALOR | currency:'USD':true }}</span>
+                    <b color="primary" ion-text>Valor:</b>  <span item-right>{{ cliente.VALOR | currency:'USD':true }}</span>
                 </ion-item>
                 <ion-item>
-                    <b primary>Saldo:</b> <span item-right>{{ cliente.SALDO | currency:'USD':true }}</span>
+                    <b color="primary" ion-text>Saldo:</b> <span item-right>{{ cliente.SALDO | currency:'USD':true }}</span>
                 </ion-item>
             </ion-list>
 
@@ -41,34 +41,34 @@
         <ion-card *ngFor="let cliente of desglose">
             <ion-list>
                 <ion-item>
-                    <b primary># Factura:</b>  <span item-right>{{cliente.NUM_TRN}}</span>
+                    <b color="primary" ion-text># Factura:</b>  <span item-right>{{cliente.NUM_TRN}}</span>
                 </ion-item>
 				<ion-item>
-                    <b primary>Empresa:</b>  <span item-right>{{ api.empresas[cliente.empresa_id].nombre}}</span>
+                    <b color="primary" ion-text>Empresa:</b>  <span item-right>{{ api.empresas[cliente.empresa_id].nombre}}</span>
                 </ion-item>
                 <ion-item>
-                    <b primary>Fecha de Documento:</b>  <span item-right>{{cliente.FEC_DOC}}</span>
+                    <b color="primary" ion-text>Fecha de Documento:</b>  <span item-right>{{cliente.FEC_DOC}}</span>
                 </ion-item>
                 <ion-item>
-                    <b primary>Fecha de Vencimiento:</b>  <span item-right>{{cliente.FEC_VEN}}</span>
+                    <b color="primary" ion-text>Fecha de Vencimiento:</b>  <span item-right>{{cliente.FEC_VEN}}</span>
                 </ion-item>
                 <ion-item>
-                    <b primary>Dias:</b>  <span  item-right>{{ (cliente.dias) }}</span>
+                    <b color="primary" ion-text>Dias:</b>  <span  item-right>{{ (cliente.dias) }}</span>
                 </ion-item>
                 <ion-item *ngIf="cliente.neto == '1'">
-                    <b primary>Neto:</b>  <span  item-right> SI </span>
+                    <b color="primary" ion-text>Neto:</b>  <span  item-right> SI </span>
                 </ion-item>
                 <ion-item>
-                    <b primary>Flete:</b>  <span  item-right>{{ cliente.flete | currency:'USD':true }}</span>
+                    <b color="primary" ion-text>Flete:</b>  <span  item-right>{{ cliente.flete | currency:'USD':true }}</span>
                 </ion-item>
                 <ion-item>
-                    <b primary>Dias:</b>  <span  item-right>{{ (cliente.dias) }}</span>
+                    <b color="primary" ion-text>Dias:</b>  <span  item-right>{{ (cliente.dias) }}</span>
                 </ion-item>
                 <ion-item>
-                    <b primary>Valor:</b>  <span item-right>{{ cliente.VALOR | currency:'USD':true }}</span>
+                    <b color="primary" ion-text>Valor:</b>  <span item-right>{{ cliente.VALOR | currency:'USD':true }}</span>
                 </ion-item>
                 <ion-item>
-                    <b primary>Saldo:</b>  <span [attr.danger]="cliente.SALDO != '0.0' ? 'true' : null" item-right>{{ cliente.SALDO | currency:'USD':true }}</span>
+                    <b color="primary" ion-text>Saldo:</b>  <span [attr.danger]="cliente.SALDO != '0.0' ? 'true' : null" item-right>{{ cliente.SALDO | currency:'USD':true }}</span>
                 </ion-item>
             </ion-list>
         </ion-card>
@@ -78,9 +78,9 @@
 
 <ion-footer>
     <ion-item>
-        <ion-label>Fecha:</ion-label>
+        <ion-label>Datos de:</ion-label>
         <ion-badge item-right>
-            {{desglose.last_update |  date:'dd/mm/y H:mm a'}}
+            {{desglose.last_update | amTimeAgo }}
         </ion-badge>
     </ion-item>
 </ion-footer>

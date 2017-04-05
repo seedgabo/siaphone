@@ -28,9 +28,9 @@ export class CarteraPorClientePage {
             this.desglose = data.cliente;
             this.api.storage.set("cartera-" + this.cliente.COD_TER , JSON.stringify(data.cliente));
 			if(this.api.prefs.verCarteraEmpresas)
-					this.desglose = JSON.parse(data.cliente);
+					this.desglose = data.cliente;
 			else
-				this.desglose = JSON.parse(data.cliente).filter((item)=>{
+				this.desglose = data.cliente.filter((item)=>{
 					return item.empresa_id == this.api.empresa;
 				});
         });

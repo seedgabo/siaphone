@@ -10,6 +10,7 @@ declare var cordova;
 export class ItemDetailsPage {
 	producto: any = {}
 	pedidos = 1;
+	loader = false;
 	constructor(public platform: Platform, public navCtrl: NavController, public navParams: NavParams,
 		public api: Api, public alert: AlertController, public toast: ToastController, public transfer: Transfer,
 		public viewctrl: ViewController) {
@@ -67,6 +68,7 @@ export class ItemDetailsPage {
 	}
 
 	saveImage() {
+		this.loader = true;
 		var transfer = this.transfer.create();
 		transfer.onProgress((data) => {
 			console.log(data);
@@ -77,8 +79,10 @@ export class ItemDetailsPage {
 			true,
 		).then((entry) => {
 			console.log(entry.toURL());
+			this.loader = false;
 			this.toast.create({duration:2500, message:"Imagen Guardada", position: "top"}).present();
 		}).catch((err) => {
+			this.loader = false;
 			console.error(err);
 		});
 	}

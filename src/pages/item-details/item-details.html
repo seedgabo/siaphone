@@ -5,13 +5,13 @@
         </button>
 		<ion-title># {{producto.NOM_REF}}</ion-title>
 		<ion-buttons end>
-			<button ion-button (click)="dismiss()" *ngIf="modal">
+			<button ion-button icon-only (click)="dismiss()" *ngIf="modal">
                 <ion-icon name="close"></ion-icon>
             </button>
-			<button ion-button (click)="editprecio()">
+			<button ion-button icon-only (click)="editprecio()">
                 <ion-icon name="create"></ion-icon>
             </button>
-			<button ion-button (click)="saveImage()">
+			<button ion-button icon-only (click)="saveImage()">
                 <ion-icon name="download"></ion-icon>
             </button>
 		</ion-buttons>
@@ -19,12 +19,15 @@
 </ion-header>
 
 <ion-content class="card-background-page">
+	<div text-center *ngIf="loader">	
+		<ion-spinner></ion-spinner>
+	</div>
 	<ion-card>
 		<ion-grid>
 			<ion-row>
 				<ion-col col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6>
-					<img src="{{producto.imagen}}"  id="{{producto.id}}" alt="Imagen de producto" *ngIf="!api.offline">
-					<img src="{{imagenLocal(producto)}}" id="{{producto.id}}" alt="Imagen de producto" *ngIf="api.offline">
+					<img src="{{producto.imagen}}"  id="{{producto.id}}" alt="Imagen de producto" *ngIf="!api.offline" style="min-width:200px; width:100%">
+					<img src="{{imagenLocal(producto)}}" id="{{producto.id}}" alt="Imagen de producto" *ngIf="api.offline" style="min-width:200px; width:100%">
 				</ion-col>
 				<ion-col col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6>
 					<ion-card-content>

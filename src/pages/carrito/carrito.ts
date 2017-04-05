@@ -34,6 +34,13 @@ export class CarritoPage {
 	  this.api.carrito.items = [];
 	  this.api.storage.set("carritos", JSON.stringify(this.api.carritos));
   }
+  total(){
+	  var total = 0;
+	  this.api.carrito.items.forEach((item)=>{
+			total += item.cantidad * item.VAL_REF;
+	  });
+	  return total;
+  }
 
 
 }

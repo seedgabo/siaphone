@@ -2,11 +2,11 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-
 import { Page1 } from '../pages/page1/page1';
 import { Page2 } from '../pages/page2/page2';
 import { LoginPage } from "../pages/login/login";
 import { CarritoPage } from "../pages/carrito/carrito";
+import { PreferenciasPage } from "../pages/preferencias/preferencias";
 import { Api } from "../providers/api";
 
 
@@ -33,9 +33,10 @@ export class MyApp {
 		});
 		// used for an example of ngFor and navigation
 		this.pages = [
-			{ title: 'Home', component: Page1 , icon:"home" },
-			{ title: 'Productos', component: Page2, icon: 'pricetags'},
-			{ title: 'Carrito', component: CarritoPage, icon:'cart' },
+			{ title: 'Home', component: Page1 , icon:"home" , disabled: false},
+			{ title: 'Productos', component: Page2, icon: 'pricetags', disabled: true},
+			{ title: 'Carrito', component: CarritoPage, icon:'cart' , disabled: true},
+			{ title: 'Preferencias', component: PreferenciasPage, icon:'cog', disabled:false },
 		];
 
 	}

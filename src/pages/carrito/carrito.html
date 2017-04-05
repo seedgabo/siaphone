@@ -13,7 +13,10 @@
 	  <ion-item-sliding *ngFor="let item of api.carrito.items; let i=index">
 		  <ion-item>
 				{{ item.NOM_REF }}
-				<ion-badge item-right>{{item.cantidad}}</ion-badge>
+				<p><b>Cantidad:</b> {{ item.cantidad}}</p>
+				<p><b>Precio:</b> {{ item.VAL_REF}}</p>
+				<ion-badge item-right>{{item.cantidad * item.VAL_REF}}</ion-badge>
+
 		  </ion-item>
 		  <ion-item-options side="right">
 				<button ion-button color="danger" icon-only (click)="api.removeFromCart(i)">
@@ -24,6 +27,11 @@
   </ion-list>
 </ion-content>
 <ion-footer>
+	<ion-toolbar>
+		<div *ngIf="api.prefs.verTotal">
+			<b> Total: </b> {{ total() | currency:'USD':true }}
+		</div>
+	</ion-toolbar>
 	<ion-grid>
 		<ion-row>	
 			<ion-col>

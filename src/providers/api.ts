@@ -21,6 +21,7 @@ export class Api {
     secure_code=false;
 	carritos:Array<any>= [];
 	carrito: any;
+	prefs = { verTotal : true };
     constructor(public http: Http, public storage:Storage) {
         this.initVar();
     }
@@ -40,6 +41,7 @@ export class Api {
         this.storage.get("productos").then( (data) =>  {this.productos = data ? JSON.parse(data): [];});
         this.storage.get("cartera").then( (data) =>  {this.cartera = data ? JSON.parse(data): [];});
         this.storage.get("carritos").then( (data) =>  {this.carritos = data ? JSON.parse(data): [];});
+        this.storage.get("prefs").then( (data) =>  { if(data != undefined) { this.prefs = JSON.parse(data)} });
     }
 
     setData (username, password , url) {
@@ -236,7 +238,7 @@ export class Api {
 				 return this.carrito == carrito;
 			});
 		}
-		this.carrito = [];
+		this.carrito = undefined;
 		var deleteds = this.carritos.splice(index, 1);
 		this.storage.set("carritos",JSON.stringify(this.carritos));
 		return deleteds;

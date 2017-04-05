@@ -15,7 +15,7 @@ export class Page2 {
     mostrarImagenes:boolean = false;
     procesando:boolean = false;
     query= "";
-    productos:Array<any>;
+    productos:Array<any>= [{}];
   constructor(public platform:Platform,public nav: NavController, public navParams: NavParams, public api:Api, public alert:AlertController, public actionsheet:ActionSheetController) {
   }
     ionViewDidEnter(){

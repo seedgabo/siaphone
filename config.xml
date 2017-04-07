@@ -43,10 +43,13 @@
     <feature name="http://api.phonegap.com/1.0/network" />
     <plugin name="cordova-plugin-file-transfer" spec="~1.6.2" />
     <plugin name="cordova-plugin-code-push" spec="~1.9.3-beta" />
-	<platform name="android">
-    	<preference name="CodePushDeploymentKey" value="oexveBOnuG13bWH7utcURxFMpejfNJcVZfbEf" />
-	</platform>
-	<platform name="ios">
-		<preference name="CodePushDeploymentKey" value="XGggFH100YPhS5rETZNUE4idcDzgNJcVZfbEf" />
-	</platform>
+    <platform name="android">
+        <preference name="CodePushDeploymentKey" value="oexveBOnuG13bWH7utcURxFMpejfNJcVZfbEf" />
+    </platform>
+    <platform name="ios">
+        <preference name="CodePushDeploymentKey" value="XGggFH100YPhS5rETZNUE4idcDzgNJcVZfbEf" />
+    </platform>
+    <plugin name="cordova-plugin-photo-library" spec="~2.0.4">
+        <variable name="PHOTO_LIBRARY_USAGE_DESCRIPTION" value="To choose photos" />
+    </plugin>
 </widget>

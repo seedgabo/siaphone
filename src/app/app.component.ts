@@ -9,6 +9,7 @@ import { CarritoPage } from "../pages/carrito/carrito";
 import { PreferenciasPage } from "../pages/preferencias/preferencias";
 import { Api } from "../providers/api";
 import { CarteraPage } from "../pages/cartera/cartera";
+import { CodePush } from "@ionic-native/code-push";
 
 
 @Component({
@@ -21,7 +22,7 @@ export class MyApp {
 	queryCliente = "";
 	pages: Array<any>;
 
-	constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public api: Api) {
+	constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen,public codepush:CodePush, public api: Api) {
 		this.initializeApp();
 		this.api.storage.ready().then(() => {
 			this.api.storage.get("user").then((user) => {
@@ -49,6 +50,7 @@ export class MyApp {
 			// Here you can do any higher level native things you might need.
 			this.statusBar.styleDefault();
 			this.splashScreen.hide();
+			this.codepush.sync().subscribe((syncStatus) => console.log(syncStatus));
 		});
 	}
 

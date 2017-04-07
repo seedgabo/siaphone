@@ -5,27 +5,48 @@
      	 <ion-icon name="menu"></ion-icon>
     	</button>
 		<ion-title>Carrito</ion-title>
+		<ion-buttons end>
+            <button ion-button  (click)="cambiarAgregando()">{{agregando}}</button>
+        </ion-buttons>
 	</ion-navbar>
+	<ion-toolbar>
+		<ion-searchbar  [(ngModel)]="query" type="search" (change)="onInput($event)" placeholder="Codigo de producto aqui.."></ion-searchbar>
+	</ion-toolbar>
 
 </ion-header>
 
 
 <ion-content padding>
-	<h3>{{api.cliente.NOM_TER}}</h3>
+	<h4>{{api.cliente.NOM_TER}}</h4>
 	<ion-list>
 		<ion-item-sliding *ngFor="let item of api.carrito.items; let i=index">
 			<ion-item>
 				{{ item.NOM_REF }}
 				<p><b>Cantidad:</b> {{ item.cantidad}}</p>
 				<p><b>Precio:</b> {{ item.VAL_REF}}</p>
-				<ion-badge item-right>{{item.cantidad * item.VAL_REF}}</ion-badge>
+				<p>{{item.COD_REF}}</p>
+				<ion-badge item-right>{{(item.cantidad * item.VAL_REF | currency:"USD":true)  }}</ion-badge>
 
 			</ion-item>
 			<ion-item-options side="right">
-				<button ion-button color="danger" icon-only (click)="api.removeFromCart(i)">
+				<button ion-button color="primary" icon-only (click)="editar(item)">
+					<ion-icon name="create"></ion-icon>
+				</button>
+				
+				<button ion-button color="danger" icon-only (click)="eliminar(item,i)">
 					<ion-icon name="trash"></ion-icon>
 				</button>
 			</ion-item-options>
+			<ion-item-options side="left">
+                <button ion-button *ngIf="api.user.COD_CLI == '' || api.user.COD_CLI == null "  (click)="cambiarPrecio(item)">
+                    <ion-icon name="cash"></ion-icon>
+                    Precio
+                </button>
+                <button ion-button  (click)="cambiarCantidad(item)">
+                    <ion-icon name="grid"></ion-icon>
+                    Cantidad
+                </button>
+            </ion-item-options>
 		</ion-item-sliding>
 	</ion-list>
 </ion-content>
@@ -43,7 +64,7 @@
 				</button>
 			</ion-col>
 			<ion-col>
-				<button ion-button color="primary" full (click)="procesarCarrito()">
+				<button ion-button color="primary" full (click)="procesarCarrito()" [disabled]="api.carrito.items.length == 0">
 					Procesar
 				</button>
 			</ion-col>

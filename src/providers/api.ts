@@ -160,7 +160,7 @@ export class Api {
         });
     }
 
-    addToCart(producto,cantidad:number){
+    addToCart(producto,cantidad:number, sumar =false){
         producto.neto = producto.neto ? 1 : 0;
         producto.observacion = producto.observacion != undefined ? producto.observacion : '';
 		var item = {
@@ -179,6 +179,10 @@ export class Api {
 		});
 
 		if( index > -1 && index != undefined){
+			if(sumar){
+				let old = parseInt(this.carrito.items[index].cantidad);
+				item.cantidad += old;
+			}	
 			this.carrito.items[index] = item;
 			this.storage.set("carritos", JSON.stringify(this.carritos));
 			return "actualizado";

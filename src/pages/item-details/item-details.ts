@@ -15,6 +15,10 @@ export class ItemDetailsPage {
 		public api: Api, public alert: AlertController, public toast: ToastController, public transfer: Transfer,
 		public viewctrl: ViewController) {
 		this.producto = this.navParams.get("producto");
+		var cantidad = this.navParams.get("cantidad");
+		if(cantidad != undefined){
+			this.pedidos = cantidad;
+		}
 	}
 
 	agregarAlCarrito() {

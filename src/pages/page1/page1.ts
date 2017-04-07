@@ -23,6 +23,13 @@ export class Page1 {
 		this.getEmpresas();
 	}
 
+	ionViewDidLoad(){
+		setTimeout(()=>{
+			if(this.carritosByCliente().length > 0){
+				this.setCarrito(this.carritosByCliente()[0]);
+			}
+		},800);
+	}
 
     getEmpresas (){
         this.api.getEmpresas().then((data:any) => {

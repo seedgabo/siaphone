@@ -14,11 +14,15 @@
 	<ion-list>
 		<ion-item>
 			<ion-label> Ver Total</ion-label>
-			 <ion-toggle  [(ngModel)]="api.prefs.verTotal"></ion-toggle>
+			 <ion-toggle (ionChange)="savePrefs()"  [(ngModel)]="api.prefs.verTotal"></ion-toggle>
 		</ion-item>
 		<ion-item>
 			<ion-label> Ver Cartera de todas </ion-label>
-			 <ion-toggle  [(ngModel)]="api.prefs.verCarteraEmpresas"></ion-toggle>
+			 <ion-toggle (ionChange)="savePrefs()"  [(ngModel)]="api.prefs.verCarteraEmpresas"></ion-toggle>
+		</ion-item>
+		<ion-item>
+			<ion-label> Ver Imagenes locales </ion-label>
+			 <ion-toggle (ionChange)="savePrefs()"  [(ngModel)]="api.prefs.verImgOffline"></ion-toggle>
 		</ion-item>
 	</ion-list>
 </ion-content>

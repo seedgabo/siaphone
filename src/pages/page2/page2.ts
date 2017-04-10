@@ -132,7 +132,7 @@ export class Page2 {
     }
 
     imagenLocal(producto:any){
-		if(this.platform.is("cordova"))
+		if(this.platform.is("cordova") && !this.api.prefs.verImgOffline)
 		{
         	return cordova.file.externalApplicationStorageDirectory + this.api.empresa + "/productos/" + producto.COD_REF.trim()  + ".jpg";
 		}

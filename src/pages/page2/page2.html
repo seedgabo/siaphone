@@ -5,9 +5,11 @@
     </button>
     <ion-title>Productos</ion-title>
 	<ion-buttons end>
-		<button ion-button icon-right (click)="mostrarImagenes = !mostrarImagenes">
-			mostrar Imagenes
+		<button ion-button icon-only (click)="mostrarImagenes = !mostrarImagenes">
 			<ion-icon name="images"></ion-icon>
+		</button>
+		<button ion-button icon-right (click)="initSaveAlbum()">
+			<ion-icon name="download"></ion-icon>
 		</button>
 	</ion-buttons>
   </ion-navbar>

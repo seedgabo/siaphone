@@ -21,6 +21,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { Transfer } from '@ionic-native/transfer';
 import {CodePush} from '@ionic-native/code-push';
+import {PhotoLibrary} from '@ionic-native/photo-library';
 import * as moment  from 'moment';
 import 'moment/min/locales';
 moment.locale("es");
@@ -55,7 +56,7 @@ moment.locale("es");
 	CarteraPorClientePage
   ],
   providers: [
-    StatusBar,SplashScreen,BarcodeScanner,Transfer,CodePush,
+    StatusBar,SplashScreen,BarcodeScanner,Transfer,CodePush,PhotoLibrary,
 	Api,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]

@@ -1,3 +1,4 @@
+import {PhotoLibrary} from '@ionic-native/photo-library';
 import { Component } from '@angular/core';
 import { Platform, ViewController, AlertController, ToastController, NavController, NavParams } from 'ionic-angular';
 import { Api } from "../../providers/api";
@@ -13,7 +14,7 @@ export class ItemDetailsPage {
 	loader = false;
 	constructor(public platform: Platform, public navCtrl: NavController, public navParams: NavParams,
 		public api: Api, public alert: AlertController, public toast: ToastController, public transfer: Transfer,
-		public viewctrl: ViewController) {
+		public viewctrl: ViewController,public photolibrary:PhotoLibrary) {
 		this.producto = this.navParams.get("producto");
 		var cantidad = this.navParams.get("cantidad");
 		if(cantidad != undefined){
@@ -83,8 +84,15 @@ export class ItemDetailsPage {
 			true,
 		).then((entry) => {
 			console.log(entry.toURL());
-			this.loader = false;
-			this.toast.create({duration:2500, message:"Imagen Guardada", position: "top"}).present();
+			this.photolibrary.saveImage(entry.toURL(),this.api.empresas[this.api.empresa].nombre,{quality:50})
+			.then((item)=>{
+				console.log(item);
+				this.toast.create({duration:2500, message:"Imagen Guardada", position: "top"}).present();
+				this.loader = false;
+			})
+			.catch((err)=>{
+				console.error(err);
+			});
 		}).catch((err) => {
 			this.loader = false;
 			console.error(err);

@@ -1,14 +1,18 @@
+import {Transfer} from '@ionic-native/transfer';
+import {PhotoLibrary} from '@ionic-native/photo-library';
 import { Component } from '@angular/core';
 
-import {Platform, ActionSheetController,  AlertController,   NavController,    NavParams} from 'ionic-angular';
+import {Loading, LoadingController,  Platform,   ActionSheetController,    AlertController,     NavController,      NavParams} from 'ionic-angular';
 import { Api } from "../../providers/api";
 import { ItemDetailsPage } from "../item-details/item-details";
 declare var cordova:any;
+declare var window:any;
 @Component({
   selector: 'page-page2',
   templateUrl: 'page2.html'
 })
 export class Page2 {
+	index: number= 0;
     actualPage:number=1;
     currentPage:number=0;
     lastPage:number=0;
@@ -16,14 +20,24 @@ export class Page2 {
     procesando:boolean = false;
     query= "";
     productos:Array<any>= [{}];
-  constructor(public platform:Platform,public nav: NavController, public navParams: NavParams, public api:Api, public alert:AlertController, public actionsheet:ActionSheetController) {
-  }
+	loader:Loading;
+	constructor(public platform:Platform,public nav: NavController, public navParams: NavParams, public api:Api, public loading:LoadingController,
+	public alert:AlertController, public actionsheet:ActionSheetController, public photolibrary:PhotoLibrary, public transfer:Transfer) {
+		window.photolibrary = photolibrary;
+	}
+
+
     ionViewDidEnter(){
         window.setTimeout(()=>{
 			var element:any = window.document.getElementsByClassName('searchbar-input')[0];
             element.focus();
             this.query = "";
         },500);
+		this.photolibrary.requestAuthorization().then(()=>{
+			console.log(this.photolibrary.getAlbums());
+		}).catch((err)=>{
+			console.error(err);
+		});
 		this.getProductos();
     }
 
@@ -140,4 +154,52 @@ export class Page2 {
 			return producto.imagen
 		}
     }
+
+	initSaveAlbum(){
+		this.index =0;
+		this.loader = this.loading.create({
+			content: "Descarando imagenes " + (this.index +1) +  " de " + this.productos.length,
+		});
+		this.loader.present();
+		this.saveAllAlbum();
+	}
+
+	saveAllAlbum(){
+		if(this.index < this.api.productos.length ){
+			this.saveImage(this.api.productos[this.index++]);
+			this.loader.setContent("Descarando imagenes " + (this.index +1) +  " de " + this.productos.length);
+		}
+		else{
+			console.log("ready");
+			this.loader.dismiss();
+			return "ready";
+		}
+	}
+
+	saveImage(producto) {
+		var transfer = this.transfer.create();
+		transfer.onProgress((data) => {
+			console.log(data);
+
+		})
+		transfer.download(producto.imagen,
+			cordova.file.externalApplicationStorageDirectory + this.api.empresa + "/productos/" + producto.COD_REF.trim() + ".jpg",
+			true,
+		).then((entry) => {
+			console.log(entry.toURL());
+			this.photolibrary.saveImage(entry.toURL(),this.api.empresas[this.api.empresa].nombre,{quality:50})
+			.then((item)=>{
+					console.log(item);
+					this.saveAllAlbum();
+			})
+			.catch((err)=>{
+				console.error(err);
+				this.saveAllAlbum();
+
+			});
+		}).catch((err) => {
+			console.error(err);
+			this.saveAllAlbum();
+		});
+	}
 }

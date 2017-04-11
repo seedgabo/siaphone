@@ -35,7 +35,10 @@ export class Page1 {
         this.api.getEmpresas().then((data:any) => {
             console.log(data);
             this.api.empresas = data;
-        });
+        })
+		.catch((err)=>{
+			console.error(err);
+		});
     };
 
     getClientes(){
@@ -47,7 +50,7 @@ export class Page1 {
     logout(){
         this.api.user = undefined;
         this.api.setData(undefined,undefined,undefined);
-		this.navCtrl.setRoot(LoginPage)
+		this.navCtrl.setRoot(LoginPage);
     }
 
 	setCarrito(carrito){

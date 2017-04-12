@@ -12,6 +12,8 @@ import { CarteraPage } from '../pages/cartera/cartera';
 import { CarteraPorClientePage } from '../pages/cartera-por-cliente/cartera-por-cliente';
 
 import { IonicStorageModule } from '@ionic/storage';
+import { BrowserModule } from '@angular/platform-browser';
+import { HttpModule } from '@angular/http';
 import {MomentModule} from 'angular2-moment';
 
 import {Api} from '../providers/api';
@@ -39,6 +41,8 @@ moment.locale("es");
 	CarteraPorClientePage
   ],
   imports: [
+	BrowserModule,
+  	HttpModule,
     IonicModule.forRoot(MyApp),
 	IonicStorageModule.forRoot(),
 	MomentModule

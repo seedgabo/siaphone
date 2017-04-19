@@ -1,3 +1,4 @@
+import { Galeria } from './../pages/galeria/galeria';
 import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -11,7 +12,6 @@ import { Api } from "../providers/api";
 import { CarteraPage } from "../pages/cartera/cartera";
 import { CodePush } from "@ionic-native/code-push";
 
-
 @Component({
 	templateUrl: 'app.html'
 })
@@ -22,7 +22,7 @@ export class MyApp {
 	queryCliente = "";
 	pages: Array<any>;
 
-	constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen,public codepush:CodePush, public api: Api) {
+	constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public codepush: CodePush, public api: Api) {
 		this.initializeApp();
 		this.api.storage.ready().then(() => {
 			this.api.storage.get("user").then((user) => {
@@ -35,11 +35,12 @@ export class MyApp {
 		});
 		// used for an example of ngFor and navigation
 		this.pages = [
-			{ title: 'Home', component: Page1 , icon:"home" , disabled: false},
-			{ title: 'Productos', component: Page2, icon: 'pricetags', disabled: true},
-			{ title: 'Carrito', component: CarritoPage, icon:'cart' , disabled: true},
-			{ title: 'Cartera', component: CarteraPage, icon:'briefcase' , disabled: false},
-			{ title: 'Preferencias', component: PreferenciasPage, icon:'cog', disabled:false },
+			{ title: 'Home', component: Page1, icon: "home", disabled: false },
+			{ title: 'Productos', component: Page2, icon: 'pricetags', disabled: true },
+			{ title: 'Carrito', component: CarritoPage, icon: 'cart', disabled: true },
+			{ title: 'Galeria', component: Galeria, icon: 'photos', disabled: false },
+			{ title: 'Cartera', component: CarteraPage, icon: 'briefcase', disabled: false },
+			{ title: 'Preferencias', component: PreferenciasPage, icon: 'cog', disabled: false },
 		];
 
 	}
@@ -50,7 +51,7 @@ export class MyApp {
 			// Here you can do any higher level native things you might need.
 			this.statusBar.styleDefault();
 			this.splashScreen.hide();
-			this.codepush.sync().subscribe((syncStatus) => console.log(syncStatus),(err)=>{console.warn(err)});
+			this.codepush.sync().subscribe((syncStatus) => console.log(syncStatus), (err) => { console.warn(err) });
 		});
 	}
 

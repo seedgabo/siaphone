@@ -1,0 +1,35 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      <ion-icon name="photos"></ion-icon>
+      Galeria
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="current_page = current_page - 1" [disabled]="current_page <= 0">
+        <ion-icon name="arrow-dropleft-circle"></ion-icon>
+      </button>
+      <button ion-button icon-only (click)="current_page = current_page +1" [disabled]="current_page >= max_page">
+        <ion-icon name="arrow-dropright-circle"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-refresher (ionRefresh)="refresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-4 *ngFor="let photo of getPhotos()">
+        <img [src]="photo.thumbnailURL | cdvphotolibrary">
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

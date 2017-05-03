@@ -39,7 +39,7 @@ export class MyApp {
 			{ title: 'Home', component: Page1, icon: "home", disabled: false },
 			{ title: 'Productos', component: Page2, icon: 'pricetags', disabled: true },
 			{ title: 'Carrito', component: CarritoPage, icon: 'cart', disabled: true },
-			{ title: 'Galeria', component: Galeria, icon: 'photos', disabled: false, beta: true },
+			// { title: 'Galeria', component: Galeria, icon: 'photos', disabled: false, beta: true },
 			{ title: 'Cartera', component: CarteraPage, icon: 'briefcase', disabled: false },
 			{ title: 'Carritos', component: Carritos, icon: 'cart', disabled: false },
 			{ title: 'Preferencias', component: PreferenciasPage, icon: 'cog', disabled: false },

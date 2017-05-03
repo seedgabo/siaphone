@@ -7,7 +7,7 @@ import 'rxjs/add/operator/map';
 // import * as  _ from 'lodash';
 @Injectable()
 export class Api {
-    data: any = {};
+    data: any = { url:  "http://siasoft.eycproveedores.com/" };
     user: any = {};
     empresa: any;
     empresas: Array<any>;

@@ -43,4 +43,14 @@ export class CarteraPorClientePage {
             });
     }
 
+    desgloseTotal() {
+        var data = 0;
+        console.log(this.desglose);
+        this.desglose.forEach((element) => {
+            if (element.empresa_id == this.api.empresa)
+                data++;
+        });
+        return data;
+    }
+
 }

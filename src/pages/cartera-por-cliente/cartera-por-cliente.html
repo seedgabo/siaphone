@@ -44,13 +44,13 @@
     </ion-card-content>
 
     <ion-card *ngFor="let cliente of desglose">
-      <ion-list *ngIf="!api.prefs.verCarteraEmpresas ||  (!api.prefs.verCarteraEmpresas && cliente.empresa_id == api.empresa  )">
+      <ion-list *ngIf="api.prefs.verCarteraEmpresas || cliente.empresa_id == api.empresa">
         <ion-item>
           <b color="primary" ion-text># Factura:</b> <span item-right>{{cliente.NUM_TRN}}</span>
         </ion-item>
-        <ion-item>
+        <!--<ion-item>
           <b color="primary" ion-text>Empresa:</b> <span item-right>{{ api.empresas[cliente.empresa_id].nombre}}</span>
-        </ion-item>
+        </ion-item>-->
         <ion-item>
           <b color="primary" ion-text>Fecha de Documento:</b> <span item-right>{{cliente.FEC_DOC}}</span>
         </ion-item>
@@ -77,6 +77,10 @@
         </ion-item>
       </ion-list>
     </ion-card>
+
+    <h2 *ngIf="!loading && !desglose">
+      No hay cartera para el cliente
+    </h2>
 
   </ion-card>
 </ion-content>

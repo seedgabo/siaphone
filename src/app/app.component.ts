@@ -11,6 +11,7 @@ import { PreferenciasPage } from "../pages/preferencias/preferencias";
 import { Api } from "../providers/api";
 import { CarteraPage } from "../pages/cartera/cartera";
 import { CodePush } from "@ionic-native/code-push";
+import { Carritos } from "../pages/carritos/carritos";
 
 @Component({
 	templateUrl: 'app.html'
@@ -40,6 +41,7 @@ export class MyApp {
 			{ title: 'Carrito', component: CarritoPage, icon: 'cart', disabled: true },
 			{ title: 'Galeria', component: Galeria, icon: 'photos', disabled: false, beta: true },
 			{ title: 'Cartera', component: CarteraPage, icon: 'briefcase', disabled: false },
+			{ title: 'Carritos', component: Carritos, icon: 'cart', disabled: false },
 			{ title: 'Preferencias', component: PreferenciasPage, icon: 'cog', disabled: false },
 		];
 

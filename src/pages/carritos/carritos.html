@@ -1,0 +1,34 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+     	 <ion-icon name="menu"></ion-icon>
+    	</button>
+    <ion-title>Carritos</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-card>
+    <ion-card-header>
+      Carritos
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <button ion-item *ngFor="let carrito of  api.carritos" (click)="setCarrito(carrito)" [color]="api.carrito  && carrito == api.carrito ? 'primary' : ''">
+          <div *ngIf="clientes[carrito.cliente_id]">
+            <b>Cliente:</b>
+            <span>{{ clientes[carrito.cliente_id].NOM_TER }}</span>
+          </div>
+          <b>Items:</b> <span>{{carrito.items.length}}</span>
+          <button (click)="proccess()" ion-button item-right clear icon-left [color]="api.carrito  && carrito == api.carrito ? 'light' : 'primary'">
+            <ion-icon name="cart"></ion-icon>
+            Procesar
+          </button>
+        </button>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

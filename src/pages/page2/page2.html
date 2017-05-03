@@ -4,28 +4,26 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>Productos</ion-title>
-	<ion-buttons end>
-		<button ion-button icon-only (click)="mostrarImagenes = !mostrarImagenes">
+    <ion-buttons end>
+      <button ion-button icon-only (click)="mostrarImagenes = !mostrarImagenes">
 			<ion-icon name="images"></ion-icon>
 		</button>
-		<button ion-button icon-right (click)="initSaveAlbum()">
+      <button ion-button icon-right (click)="initSaveAlbum()">
 			<ion-icon name="download"></ion-icon>
 		</button>
-	</ion-buttons>
+    </ion-buttons>
   </ion-navbar>
   <ion-toolbar>
-	<ion-searchbar [(ngModel)]="query" (ionInput)="getProductos()"></ion-searchbar>
+    <ion-searchbar [(ngModel)]="query" (ionInput)="getProductos()"></ion-searchbar>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-	<ion-list [virtualScroll]="productos"  [approxItemHeight]="mostrarImagenes ? '98px' : '87px'">
-		<button ion-item *virtualItem="let producto" (click)="verProducto(producto)">
-			<ion-thumbnail item-left *ngIf="mostrarImagenes && api.offline">
-				<img [src]="imagenLocal(producto)" />
-			</ion-thumbnail>
-			<ion-thumbnail item-left *ngIf="mostrarImagenes && !api.offline">
-				<img [src]="producto.imagen" />>		
+  <ion-list [virtualScroll]="productos" [approxItemHeight]="mostrarImagenes ? '98px' : '87px'">
+    <button ion-item *virtualItem="let producto" (click)="verProducto(producto)">
+			<ion-thumbnail item-left>
+				<img [src]="imagenLocal(producto)" *ngIf="mostrarImagenes && api.offline" />
+				<img [src]="producto.imagen" *ngIf="mostrarImagenes && !api.offline" />		
 			</ion-thumbnail>
 			<h2>{{producto.NOM_REF}}</h2>
 			<p>{{producto.VAL_REF}} $ </p>
@@ -35,5 +33,5 @@
 				{{producto.COD_REF}}
 			</div>
 		</button>
-	</ion-list>
+  </ion-list>
 </ion-content>

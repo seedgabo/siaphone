@@ -1,89 +1,91 @@
 <ion-header>
-    <ion-navbar color="primary">
-		<button ion-button menuToggle>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
      		 <ion-icon name="menu"></ion-icon>
    		 </button>
-        <ion-title>{{cliente.NOM_TER}}</ion-title>
-    </ion-navbar>
+    <ion-title>{{cliente.NOM_TER}}</ion-title>
+  </ion-navbar>
 </ion-header>
 
 <ion-content class="cartera-por-cliente">
-    <ion-card>
+  <div text-center>
+    <ion-spinner *ngIf="loading"></ion-spinner>
+  </div>
+  <ion-card>
 
-        <ion-card-header text-center>
-            <ion-icon name="person" large></ion-icon>
-            {{ cliente.NOM_TER }} <br>
-            {{cliente.COD_TER}}
-        </ion-card-header>
+    <ion-card-header text-center>
+      <ion-icon name="person" large></ion-icon>
+      {{ cliente.NOM_TER }} <br> {{cliente.COD_TER}}
+    </ion-card-header>
 
-        <ion-card-content text-justify *ngIf="!desglose">
+    <ion-card-content text-justify *ngIf="!desglose">
 
-            <ion-list>
-                <ion-item>
-                    <b color="primary" ion-text># Factura:</b>  <span item-right>{{cliente.NUM_TRN}}</span>
-                </ion-item>
-                <ion-item>
-                    <b color="primary" ion-text>Fecha de Documento:</b>  <span item-right>{{cliente.FEC_DOC}}</span>
-                </ion-item>
-                <ion-item>
-                    <b color="primary" ion-text>Fecha de Vencimiento:</b>  <span item-right>{{cliente.FEC_VEN}}</span>
-                </ion-item>
-                <ion-item>
-                    <b color="primary" ion-text>Dias:</b>  <span  item-right>{{ cliente.dias }}</span>
-                </ion-item>
-                <ion-item>
-                    <b color="primary" ion-text>Valor:</b>  <span item-right>{{ cliente.VALOR | currency:'USD':true }}</span>
-                </ion-item>
-                <ion-item>
-                    <b color="primary" ion-text>Saldo:</b> <span item-right>{{ cliente.SALDO | currency:'USD':true }}</span>
-                </ion-item>
-            </ion-list>
+      <ion-list>
+        <ion-item>
+          <b color="primary" ion-text># Factura:</b> <span item-right>{{cliente.NUM_TRN}}</span>
+        </ion-item>
+        <ion-item>
+          <b color="primary" ion-text>Fecha de Documento:</b> <span item-right>{{cliente.FEC_DOC}}</span>
+        </ion-item>
+        <ion-item>
+          <b color="primary" ion-text>Fecha de Vencimiento:</b> <span item-right>{{cliente.FEC_VEN}}</span>
+        </ion-item>
+        <ion-item>
+          <b color="primary" ion-text>Dias:</b> <span item-right>{{ cliente.dias }}</span>
+        </ion-item>
+        <ion-item>
+          <b color="primary" ion-text>Valor:</b> <span item-right>{{ cliente.VALOR | currency:'USD':true }}</span>
+        </ion-item>
+        <ion-item>
+          <b color="primary" ion-text>Saldo:</b> <span item-right>{{ cliente.SALDO | currency:'USD':true }}</span>
+        </ion-item>
+      </ion-list>
 
-        </ion-card-content>
+    </ion-card-content>
 
-        <ion-card *ngFor="let cliente of desglose">
-            <ion-list>
-                <ion-item>
-                    <b color="primary" ion-text># Factura:</b>  <span item-right>{{cliente.NUM_TRN}}</span>
-                </ion-item>
-				<ion-item>
-                    <b color="primary" ion-text>Empresa:</b>  <span item-right>{{ api.empresas[cliente.empresa_id].nombre}}</span>
-                </ion-item>
-                <ion-item>
-                    <b color="primary" ion-text>Fecha de Documento:</b>  <span item-right>{{cliente.FEC_DOC}}</span>
-                </ion-item>
-                <ion-item>
-                    <b color="primary" ion-text>Fecha de Vencimiento:</b>  <span item-right>{{cliente.FEC_VEN}}</span>
-                </ion-item>
-                <ion-item>
-                    <b color="primary" ion-text>Dias:</b>  <span  item-right>{{ (cliente.dias) }}</span>
-                </ion-item>
-                <ion-item *ngIf="cliente.neto == '1'">
-                    <b color="primary" ion-text>Neto:</b>  <span  item-right> SI </span>
-                </ion-item>
-                <ion-item>
-                    <b color="primary" ion-text>Flete:</b>  <span  item-right>{{ cliente.flete | currency:'USD':true }}</span>
-                </ion-item>
-                <ion-item>
-                    <b color="primary" ion-text>Dias:</b>  <span  item-right>{{ (cliente.dias) }}</span>
-                </ion-item>
-                <ion-item>
-                    <b color="primary" ion-text>Valor:</b>  <span item-right>{{ cliente.VALOR | currency:'USD':true }}</span>
-                </ion-item>
-                <ion-item>
-                    <b color="primary" ion-text>Saldo:</b>  <span [attr.danger]="cliente.SALDO != '0.0' ? 'true' : null" item-right>{{ cliente.SALDO | currency:'USD':true }}</span>
-                </ion-item>
-            </ion-list>
-        </ion-card>
-
+    <ion-card *ngFor="let cliente of desglose">
+      <ion-list *ngIf="!api.prefs.verCarteraEmpresas ||  (!api.prefs.verCarteraEmpresas && cliente.empresa_id == api.empresa  )">
+        <ion-item>
+          <b color="primary" ion-text># Factura:</b> <span item-right>{{cliente.NUM_TRN}}</span>
+        </ion-item>
+        <ion-item>
+          <b color="primary" ion-text>Empresa:</b> <span item-right>{{ api.empresas[cliente.empresa_id].nombre}}</span>
+        </ion-item>
+        <ion-item>
+          <b color="primary" ion-text>Fecha de Documento:</b> <span item-right>{{cliente.FEC_DOC}}</span>
+        </ion-item>
+        <ion-item>
+          <b color="primary" ion-text>Fecha de Vencimiento:</b> <span item-right>{{cliente.FEC_VEN}}</span>
+        </ion-item>
+        <ion-item>
+          <b color="primary" ion-text>Dias:</b> <span item-right>{{ (cliente.dias) }}</span>
+        </ion-item>
+        <ion-item *ngIf="cliente.neto == '1'">
+          <b color="primary" ion-text>Neto:</b> <span item-right> SI </span>
+        </ion-item>
+        <ion-item>
+          <b color="primary" ion-text>Flete:</b> <span item-right>{{ cliente.flete | currency:'USD':true }}</span>
+        </ion-item>
+        <ion-item>
+          <b color="primary" ion-text>Dias:</b> <span item-right>{{ (cliente.dias) }}</span>
+        </ion-item>
+        <ion-item>
+          <b color="primary" ion-text>Valor:</b> <span item-right>{{ cliente.VALOR | currency:'USD':true }}</span>
+        </ion-item>
+        <ion-item>
+          <b color="primary" ion-text>Saldo:</b> <span [attr.danger]="cliente.SALDO != '0.0' ? 'true' : null" item-right>{{ cliente.SALDO | currency:'USD':true }}</span>
+        </ion-item>
+      </ion-list>
     </ion-card>
+
+  </ion-card>
 </ion-content>
 
 <ion-footer>
-    <ion-item>
-        <ion-label>Datos de:</ion-label>
-        <ion-badge item-right>
-            {{desglose.last_update | amTimeAgo }}
-        </ion-badge>
-    </ion-item>
+  <ion-item>
+    <ion-label>Datos de:</ion-label>
+    <ion-badge item-right>
+      {{desglose.last_update | amTimeAgo }}
+    </ion-badge>
+  </ion-item>
 </ion-footer>

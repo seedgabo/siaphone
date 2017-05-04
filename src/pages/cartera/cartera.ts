@@ -32,7 +32,11 @@ export class CarteraPage {
                 this.procesando = false;
                 this.cartera = data.cartera;
                 this.total = data.total;
-            });
+            })
+                .catch(
+                (err) => {
+                    console.error(err);
+                });
         }
     }
 

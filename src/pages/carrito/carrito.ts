@@ -1,6 +1,6 @@
-import {ItemDetailsPage} from '../item-details/item-details';
+import { ItemDetailsPage } from '../item-details/item-details';
 import { Component } from '@angular/core';
-import {ModalController, ToastController,  LoadingController,  AlertController,  NavController,  NavParams} from 'ionic-angular';
+import { ModalController, ToastController, LoadingController, AlertController, NavController, NavParams } from 'ionic-angular';
 import { Api } from "../../providers/api";
 @Component({
 	selector: 'page-carrito',
@@ -10,11 +10,11 @@ export class CarritoPage {
 	query = "";
 	agregando = 0;
 	constructor(public navCtrl: NavController, public navParams: NavParams, public api: Api, public alert: AlertController,
-		public loading: LoadingController, public toast: ToastController, public modal:ModalController) { }
+		public loading: LoadingController, public toast: ToastController, public modal: ModalController) { }
 
 	ionViewDidLoad() {
-		this.api.storage.get("agregando-" +this.api.empresa).then((value)=>{
-			if(value != undefined){
+		this.api.storage.get("agregando-" + this.api.empresa).then((value) => {
+			if (value != undefined) {
 				this.agregando = parseInt(value);
 			}
 		})
@@ -30,7 +30,11 @@ export class CarritoPage {
 			this.api.deleteCarrito();
 		}).catch((err) => {
 			loader.dismiss().then(() => {
-				this.alert.create({ message: "No se puedo procesar el carrito", buttons: ["Ok"] }).present();
+				this.alert.create({
+					title: "No se pudo procesar el carrito",
+					message: JSON.stringify(err)
+					, buttons: ["Ok"]
+				}).present();
 			})
 			console.log(err);
 		})
@@ -74,36 +78,38 @@ export class CarritoPage {
 		}
 	}
 
-	toaster(response){
-			if(response == "actualizado"){
-				this.toast.create({message: "Producto Actualizado", duration: 1000}).present();
-				return
-			}
-			this.toast.create({message: "Producto Agregado", duration: 1000}).present();
+	toaster(response) {
+		if (response == "actualizado") {
+			this.toast.create({ message: "Producto Actualizado", duration: 1000 }).present();
+			return
+		}
+		this.toast.create({ message: "Producto Agregado", duration: 1000 }).present();
 	}
 
-	cambiarAgregando(){
-        this.alert.create({title:"¿Cuantos desea agregar por codigo?",inputs:[{type:"number",name:"agregando", value: this.agregando.toString()}],      buttons: [
-            {
-                text: 'Cancelar',
-                handler: data => {
-                    console.log('Cancel clicked');
-                }
-            },
-            {
-                text: 'Guardar',
-                handler: data => {
-                    this.agregando =  parseInt(data.agregando);
-                    this.api.storage.set("agregando-"+ this.api.empresa,data.agregando);
-                }
-            }
-        ]}).present();
-    }
+	cambiarAgregando() {
+		this.alert.create({
+			title: "¿Cuantos desea agregar por codigo?", inputs: [{ type: "number", name: "agregando", value: this.agregando.toString() }], buttons: [
+				{
+					text: 'Cancelar',
+					handler: data => {
+						console.log('Cancel clicked');
+					}
+				},
+				{
+					text: 'Guardar',
+					handler: data => {
+						this.agregando = parseInt(data.agregando);
+						this.api.storage.set("agregando-" + this.api.empresa, data.agregando);
+					}
+				}
+			]
+		}).present();
+	}
 
-	preguntarCantidad(producto){
+	preguntarCantidad(producto) {
 		this.alert.create({
 			title: "Agregar al carrito",
-			inputs:[
+			inputs: [
 				{
 					name: "cantidad",
 					label: "Cantidad",
@@ -115,8 +121,8 @@ export class CarritoPage {
 			buttons: [
 				{
 					text: "Agregar",
-					handler: (data)=>{
-						this.toaster(this.api.addToCart(producto,parseInt(data.cantidad), true));
+					handler: (data) => {
+						this.toaster(this.api.addToCart(producto, parseInt(data.cantidad), true));
 					}
 				}
 			]
@@ -132,73 +138,73 @@ export class CarritoPage {
 	}
 
 
-    eliminar(producto,index){
+	eliminar(producto, index) {
 		this.api.removeFromCart(index);
-    }
+	}
 
-    editar(producto){
-		let modal =this.modal.create(ItemDetailsPage, {producto: producto, cantidad: producto.cantidad, modal:true});
+	editar(producto) {
+		let modal = this.modal.create(ItemDetailsPage, { producto: producto, cantidad: producto.cantidad, modal: true });
 		modal.present();
-    }
+	}
 
-	cambiarPrecio(producto){
-        let prompt = this.alert.create({
-            title: 'Cambiar Precio:',
-            inputs: [
-                {
-                    name: 'precio',
-                    placeholder: 'precio',
-                    type: 'number',
-                    value: producto.VAL_REF
-                },
-            ],
-            buttons: [
-                {
-                    text: 'Cancelar',
-                    handler: data => {
-                        console.log('Cancel clicked');
-                    }
-                },
-                {
-                    text: 'Guardar',
-                    handler: data => {
+	cambiarPrecio(producto) {
+		let prompt = this.alert.create({
+			title: 'Cambiar Precio:',
+			inputs: [
+				{
+					name: 'precio',
+					placeholder: 'precio',
+					type: 'number',
+					value: producto.VAL_REF
+				},
+			],
+			buttons: [
+				{
+					text: 'Cancelar',
+					handler: data => {
+						console.log('Cancel clicked');
+					}
+				},
+				{
+					text: 'Guardar',
+					handler: data => {
 						producto.VAL_REF = parseInt(data.precio);
-                       this.toaster(this.api.addToCart(producto,producto.cantidad));
-                    }
-                }
-            ]
-        });
-        prompt.present();
-    }
+						this.toaster(this.api.addToCart(producto, producto.cantidad));
+					}
+				}
+			]
+		});
+		prompt.present();
+	}
 
-    cambiarCantidad(producto){
-        let prompt = this.alert.create({
-            title: 'Cambiar Cantidad:',
-            inputs: [
-                {
-                    name: 'cantidad',
-                    placeholder: 'cantidad',
-                    type: 'number',
-                    value: producto.cantidad
-                },
-            ],
-            buttons: [
-                {
-                    text: 'Cancelar',
-                    handler: data => {
-                        console.log('Cancel clicked');
-                    }
-                },
-                {
-                    text: 'Guardar',
-                    handler: data => {
-						this.toaster(this.api.addToCart(producto,data.cantidad));
-                    }
-                }
-            ]
-        });
-        prompt.present();
-    }
+	cambiarCantidad(producto) {
+		let prompt = this.alert.create({
+			title: 'Cambiar Cantidad:',
+			inputs: [
+				{
+					name: 'cantidad',
+					placeholder: 'cantidad',
+					type: 'number',
+					value: producto.cantidad
+				},
+			],
+			buttons: [
+				{
+					text: 'Cancelar',
+					handler: data => {
+						console.log('Cancel clicked');
+					}
+				},
+				{
+					text: 'Guardar',
+					handler: data => {
+						this.toaster(this.api.addToCart(producto, data.cantidad));
+					}
+				}
+			]
+		});
+		prompt.present();
+	}
 
 
 }

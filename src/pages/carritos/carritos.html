@@ -17,17 +17,25 @@
     </ion-card-header>
     <ion-card-content>
       <ion-list>
-        <button ion-item *ngFor="let carrito of  api.carritos" (click)="setCarrito(carrito)" [color]="api.carrito  && carrito == api.carrito ? 'primary' : ''">
-          <div *ngIf="clientes[carrito.cliente_id]">
-            <b>Cliente:</b>
-            <span>{{ clientes[carrito.cliente_id].NOM_TER }}</span>
-          </div>
-          <b>Items:</b> <span>{{carrito.items.length}}</span>
-          <button (click)="proccess()" ion-button item-right clear icon-left [color]="api.carrito  && carrito == api.carrito ? 'light' : 'primary'">
-            <ion-icon name="cart"></ion-icon>
-            Procesar
+        <ion-item-sliding *ngFor="let carrito of  api.carritos; let i = index" (click)="setCarrito(carrito)">
+          <button ion-item [color]="api.carrito  && carrito == api.carrito ? 'primary' : ''">
+            <div *ngIf="clientes[carrito.cliente_id]">
+              <b>Cliente:</b>
+              <span>{{ clientes[carrito.cliente_id].NOM_TER }}</span>
+            </div>
+            <b>Items:</b> <span>{{carrito.items.length}}</span>
+            <button (click)="proccess()" ion-button item-right clear icon-left [color]="api.carrito  && carrito == api.carrito ? 'light' : 'primary'">
+              <ion-icon name="cart"></ion-icon>
+              Procesar
+            </button>
           </button>
-        </button>
+          <ion-item-options side="right">
+            <button ion-button color="danger" *ngIf="api.carrito != carrito" (click)="deleteCarrito(i)">
+              <ion-icon name="trash"></ion-icon>
+              Eliminar
+            </button>
+          </ion-item-options>
+        </ion-item-sliding>
       </ion-list>
     </ion-card-content>
   </ion-card>

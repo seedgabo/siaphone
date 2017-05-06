@@ -7,7 +7,7 @@ import 'rxjs/add/operator/map';
 // import * as  _ from 'lodash';
 @Injectable()
 export class Api {
-    data: any = { url:  "http://siasoft.eycproveedores.com/" };
+    data: any = { url: "http://siasoft.eycproveedores.com/" };
     user: any = {};
     empresa: any;
     empresas: Array<any>;
@@ -242,7 +242,8 @@ export class Api {
                 return this.carrito == carrito;
             });
         }
-        this.carrito = undefined;
+
+        this.carritos[index] = undefined;
         var deleteds = this.carritos.splice(index, 1);
         this.storage.set("carritos", JSON.stringify(this.carritos));
         return deleteds;

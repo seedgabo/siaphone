@@ -28,10 +28,20 @@ import { PhotoLibrary } from '@ionic-native/photo-library';
 
 import { CDVPhotoLibraryPipe } from './cdvphotolibrary.pipe.ts';
 
+import Raven from 'raven-js';
 import * as moment from 'moment';
 import 'moment/min/locales';
 moment.locale("es");
+Raven
+  .config('https://71ecc607247f4d8c83a76b7714f5faf2@sentry.io/165640')
+  .install();
 
+export class RavenErrorHandler implements ErrorHandler {
+  handleError(err: any): void {
+    Raven.captureException(err.originalError || err);
+    console.error(err);
+  }
+}
 @NgModule({
   declarations: [
     MyApp,
@@ -71,7 +81,7 @@ moment.locale("es");
   providers: [
     StatusBar, SplashScreen, BarcodeScanner, Transfer, CodePush, PhotoLibrary,
     Api,
-    { provide: ErrorHandler, useClass: IonicErrorHandler }
+    { provide: ErrorHandler, useClass: RavenErrorHandler }
   ]
 })
 export class AppModule { }

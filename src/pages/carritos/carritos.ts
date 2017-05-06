@@ -38,4 +38,8 @@ export class Carritos {
     this.navCtrl.setRoot(CarritoPage);
   }
 
+  deleteCarrito(index) {
+    this.api.deleteCarrito(index);
+  }
+
 }

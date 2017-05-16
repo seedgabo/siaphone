@@ -14,7 +14,7 @@
     </ion-buttons>
   </ion-navbar>
   <ion-toolbar>
-    <ion-searchbar [(ngModel)]="query" (ionInput)="getProductos()"></ion-searchbar>
+    <ion-searchbar [(ngModel)]="query" (ionInput)="getProductos()" (keyup.enter)="getProductos(true)"></ion-searchbar>
   </ion-toolbar>
 </ion-header>
 

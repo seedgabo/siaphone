@@ -1,4 +1,4 @@
-import { Galeria } from './../pages/galeria/galeria';
+// import { Galeria } from './../pages/galeria/galeria';
 import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';

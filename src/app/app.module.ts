@@ -1,6 +1,6 @@
 import { Galeria } from './../pages/galeria/galeria';
 import { NgModule, ErrorHandler } from '@angular/core';
-import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import { IonicApp, IonicModule } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { LoginPage } from '../pages/login/login';
 import { Page1 } from '../pages/page1/page1';

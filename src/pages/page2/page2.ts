@@ -41,7 +41,7 @@ export class Page2 {
         this.getProductos();
     }
 
-    getProductos() {
+    getProductos(entrar = false) {
         if (this.api.offline) {
             this.productos = this.api.productos.filter((prod) => {
                 if (prod.empresa_id == this.api.empresa) {
@@ -53,6 +53,9 @@ export class Page2 {
                     }
                 }
             });
+            if (this.productos.length == 1 && entrar) {
+                this.verProducto(this.productos[0]);
+            }
         }
     }
 
@@ -96,7 +99,7 @@ export class Page2 {
         }
         else {
             let response = this.productos.filter((prod) => {
-                return prod.COD_REF.trim().toLowerCase().indexOf(this.query) > -1 || prod.NOM_REF.trim().toLowerCase().indexOf(this.query) > -1;
+                return prod.COD_REF.trim().toLowerCase().indexOf(this.query.toLowerCase()) > -1 || prod.NOM_REF.trim().toLowerCase().indexOf(this.query.toLowerCase()) > -1;
             });
             if (response.length == 1) {
                 this.verProducto(response[0]);

@@ -1,5 +1,5 @@
 import { ItemDetailsPage } from '../item-details/item-details';
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { ModalController, ToastController, LoadingController, AlertController, NavController, NavParams } from 'ionic-angular';
 import { Api } from "../../providers/api";
 @Component({
@@ -9,7 +9,7 @@ import { Api } from "../../providers/api";
 export class CarritoPage {
 	query = "";
 	agregando = 0;
-	constructor(public navCtrl: NavController, public navParams: NavParams, public api: Api, public alert: AlertController,
+	constructor(public navCtrl: NavController, public navParams: NavParams, public api: Api, public alert: AlertController, public zone: NgZone,
 		public loading: LoadingController, public toast: ToastController, public modal: ModalController) { }
 
 	ionViewDidLoad() {
@@ -27,7 +27,9 @@ export class CarritoPage {
 		this.api.sendCarrito(this.api.carrito).then(() => {
 			loader.dismiss();
 			this.toast.create({ duration: 3000, message: "Carrito Procesado" }).present();
-			this.api.deleteCarrito();
+			this.zone.run(() => {
+				this.api.deleteCarrito();
+			})
 		}).catch((err) => {
 			loader.dismiss().then(() => {
 				this.alert.create({
@@ -41,6 +43,9 @@ export class CarritoPage {
 	}
 
 	clearCarrito() {
+		if (!this.api.carrito) {
+			return;
+		}
 		this.api.carrito.items = [];
 		this.api.storage.set("carritos", JSON.stringify(this.api.carritos));
 	}
@@ -62,20 +67,20 @@ export class CarritoPage {
 			if (this.agregando == 0) {
 				this.preguntarCantidad(producto);
 				ev.target.focus();
+				this.query = "";
 				return;
 			}
 			else {
 				this.toaster(this.api.addToCart(producto, this.agregando, true));
 			}
 			ev.target.focus();
-			this.query = "";
 		}
 		else {
-			this.query = "";
 			this.toast.create({ message: "No se consiguió ninguno producto con este codigo", duration: 2000, position: "top" }).present().then(() => {
 				ev.target.focus();
 			});
 		}
+		this.query = "";
 	}
 
 	toaster(response) {

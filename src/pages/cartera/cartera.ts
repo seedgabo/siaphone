@@ -16,13 +16,12 @@ export class CarteraPage {
 
     getCartera() {
         if (this.api.offline) {
-            this.cartera = this.api.cartera.filter((x) => {
-                if (x.empresa_id == this.api.empresa) {
-                    if (this.query == "") {
-                        return true;
-                    }
-                    return x.NOM_TER.toLowerCase().indexOf(this.query.toLowerCase()) > -1 || x.COD_TER.toLowerCase().indexOf(this.query.toLowerCase()) > -1
+            if (!this.api.cartera[this.api.empresa]) return;
+            this.cartera = this.api.cartera[this.api.empresa].filter((x) => {
+                if (this.query == "") {
+                    return true;
                 }
+                return x.NOM_TER.toLowerCase().indexOf(this.query.toLowerCase()) > -1 || x.COD_TER.toLowerCase().indexOf(this.query.toLowerCase()) > -1
             })
             this.total = this.api.cartera_total;
         }

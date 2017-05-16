@@ -230,7 +230,7 @@ export class Api {
                 .map(res => res.json())
                 .subscribe(data => {
                     resolve(data);
-                }, error => {
+                }, (error) => {
                     return reject(error);
                 });
         });
@@ -241,9 +241,10 @@ export class Api {
             index = this.carritos.findIndex((carrito) => {
                 return this.carrito == carrito;
             });
+            this.carrito = undefined;
         }
 
-        this.carritos[index] = undefined;
+        // this.carritos[index] = undefined;
         var deleteds = this.carritos.splice(index, 1);
         this.storage.set("carritos", JSON.stringify(this.carritos));
         return deleteds;

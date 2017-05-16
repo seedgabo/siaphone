@@ -1,5 +1,5 @@
 import { PhotoLibrary } from '@ionic-native/photo-library';
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { Platform, ViewController, AlertController, ToastController, NavController, NavParams } from 'ionic-angular';
 import { Api } from "../../providers/api";
 import { Transfer } from '@ionic-native/transfer';
@@ -14,7 +14,7 @@ export class ItemDetailsPage {
 	loader = false;
 	constructor(public platform: Platform, public navCtrl: NavController, public navParams: NavParams,
 		public api: Api, public alert: AlertController, public toast: ToastController, public transfer: Transfer,
-		public viewctrl: ViewController, public photolibrary: PhotoLibrary) {
+		public viewctrl: ViewController, public photolibrary: PhotoLibrary, public zone: NgZone) {
 		this.producto = this.navParams.get("producto");
 		var cantidad = this.navParams.get("cantidad");
 		if (cantidad != undefined) {
@@ -100,10 +100,14 @@ export class ItemDetailsPage {
 	}
 
 	pedidoAdd() {
-		this.pedidos++;
+		this.zone.run(() => {
+			this.pedidos++;
+		})
 	}
 	pedidoSub() {
-		this.pedidos--;
+		this.zone.run(() => {
+			this.pedidos--;
+		});
 	}
 
 }

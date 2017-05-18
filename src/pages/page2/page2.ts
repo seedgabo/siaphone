@@ -1,7 +1,7 @@
 import { Transfer } from '@ionic-native/transfer';
 import { PhotoLibrary } from '@ionic-native/photo-library';
 import { Component } from '@angular/core';
-
+import $ from 'jquery';
 import { Loading, LoadingController, Platform, ActionSheetController, AlertController, NavController, NavParams } from 'ionic-angular';
 import { Api } from "../../providers/api";
 import { ItemDetailsPage } from "../item-details/item-details";
@@ -29,15 +29,17 @@ export class Page2 {
 
     ionViewDidEnter() {
         window.setTimeout(() => {
-            var element: any = window.document.getElementsByClassName('searchbar-input')[0];
+            var element: any = $("ion-searchbar > div > input").last();
             element.focus();
-            this.query = "";
+            console.log(element);
         }, 500);
-        this.photolibrary.requestAuthorization().then(() => {
-            console.log(this.photolibrary.getAlbums());
-        }).catch((err) => {
-            console.error(err);
-        });
+        if (this.platform.is('android')) {
+            this.photolibrary.requestAuthorization().then(() => {
+                console.log(this.photolibrary.getAlbums());
+            }).catch((err) => {
+                console.error(err);
+            });
+        }
         this.getProductos();
     }
 

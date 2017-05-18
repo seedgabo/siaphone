@@ -1,5 +1,6 @@
 import { ItemDetailsPage } from '../item-details/item-details';
 import { Component, NgZone } from '@angular/core';
+import $ from 'jquery';
 import { ModalController, ToastController, LoadingController, AlertController, NavController, NavParams } from 'ionic-angular';
 import { Api } from "../../providers/api";
 @Component({
@@ -66,7 +67,8 @@ export class CarritoPage {
 		if (producto) {
 			if (this.agregando == 0) {
 				this.preguntarCantidad(producto);
-				ev.target.focus();
+				var element: any = $("ion-searchbar > div > input").last();
+				element.focus();
 				this.query = "";
 				return;
 			}

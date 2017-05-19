@@ -21,8 +21,7 @@ export class Page2 {
     query = "";
     productos: Array<any> = [{}];
     loader: Loading;
-    constructor(public platform: Platform, public nav: NavController, public navParams: NavParams, public api: Api, public loading: LoadingController,
-        public alert: AlertController, public actionsheet: ActionSheetController, public photolibrary: PhotoLibrary, public transfer: Transfer) {
+    constructor(public platform: Platform, public nav: NavController, public navParams: NavParams, public api: Api, public loading: LoadingController, public alert: AlertController, public actionsheet: ActionSheetController, public photolibrary: PhotoLibrary, public transfer: Transfer) {
         window.photolibrary = photolibrary;
     }
 
@@ -32,6 +31,7 @@ export class Page2 {
             var element: any = $("ion-searchbar > div > input").last();
             element.focus();
             console.log(element);
+            this.query = "";
         }, 500);
         if (this.platform.is('android')) {
             this.photolibrary.requestAuthorization().then(() => {
@@ -108,7 +108,6 @@ export class Page2 {
             }
         }
     }
-
 
     presentActionSheet() {
         let Sheet = this.actionsheet.create({

@@ -19,6 +19,12 @@ export class ItemDetailsPage {
 		var cantidad = this.navParams.get("cantidad");
 		if (cantidad != undefined) {
 			this.pedidos = cantidad;
+		} else {
+			this.api.storage.get("agregando-" + this.api.empresa).then((value) => {
+				if (value != undefined) {
+					this.pedidos = parseInt(value);
+				}
+			})
 		}
 	}
 

@@ -43,7 +43,7 @@ export class Page2 {
         this.getProductos();
     }
 
-    getProductos(entrar = false) {
+    getProductos(entrar = true) {
         if (this.api.offline) {
             this.productos = this.api.productos.filter((prod) => {
                 if (prod.empresa_id == this.api.empresa) {

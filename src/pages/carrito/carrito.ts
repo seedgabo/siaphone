@@ -74,12 +74,18 @@ export class CarritoPage {
 			}
 			else {
 				this.toaster(this.api.addToCart(producto, this.agregando, true));
+				var element: any = $("ion-searchbar > div > input").last();
+				element.focus();
+				this.query = "";
+				return;
 			}
-			ev.target.focus();
 		}
 		else {
 			this.toast.create({ message: "No se consiguió ninguno producto con este codigo", duration: 2000, position: "top" }).present().then(() => {
-				ev.target.focus();
+				var element: any = $("ion-searchbar > div > input").last();
+				element.focus();
+				this.query = "";
+				return;
 			});
 		}
 		this.query = "";

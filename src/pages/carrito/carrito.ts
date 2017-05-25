@@ -10,8 +10,7 @@ import { Api } from "../../providers/api";
 export class CarritoPage {
   query = "";
   agregando = 0;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public api: Api, public alert: AlertController, public zone: NgZone,
-    public loading: LoadingController, public toast: ToastController, public modal: ModalController) { }
+  constructor(public navCtrl: NavController, public navParams: NavParams, public api: Api, public alert: AlertController, public zone: NgZone, public loading: LoadingController, public toast: ToastController, public modal: ModalController) { }
 
   ionViewDidLoad() {
     window.setTimeout(() => {
@@ -73,25 +72,25 @@ export class CarritoPage {
     if (producto) {
       if (this.agregando == 0) {
         this.preguntarCantidad(producto);
-        var element: any = $("ion-searchbar > div > input").last();
-        element.focus();
-        this.query = "";
-        return;
       }
       else {
         this.toaster(this.api.addToCart(producto, this.agregando, true));
-        var element: any = $("ion-searchbar > div > input").last();
-        element.focus();
-        this.query = "";
-        return;
+        window.setTimeout(() => {
+          var element: any = $("ion-searchbar > div > input").last();
+          element.focus();
+          console.log(element);
+          this.query = "";
+        }, 1000);
       }
     }
     else {
       this.toast.create({ message: "No se consiguió ninguno producto con este codigo", duration: 2000, position: "top" }).present().then(() => {
-        var element: any = $("ion-searchbar > div > input").last();
-        element.focus();
-        this.query = "";
-        return;
+        window.setTimeout(() => {
+          var element: any = $("ion-searchbar > div > input").last();
+          element.focus();
+          console.log(element);
+          this.query = "";
+        }, 500);
       });
     }
     this.query = "";
@@ -99,10 +98,10 @@ export class CarritoPage {
 
   toaster(response) {
     if (response == "actualizado") {
-      this.toast.create({ message: "Producto Actualizado", duration: 1000 }).present();
+      this.toast.create({ message: "Producto Actualizado", duration: 500 }).present();
       return
     }
-    this.toast.create({ message: "Producto Agregado", duration: 1000 }).present();
+    this.toast.create({ message: "Producto Agregado", duration: 500 }).present();
   }
 
   cambiarAgregando() {
@@ -126,7 +125,7 @@ export class CarritoPage {
   }
 
   preguntarCantidad(producto) {
-    this.alert.create({
+    var alert = this.alert.create({
       title: "Agregar al carrito",
       inputs: [
         {
@@ -145,7 +144,16 @@ export class CarritoPage {
           }
         }
       ]
-    }).present();
+    })
+    alert.present();
+    alert.onDidDismiss(() => {
+      window.setTimeout(() => {
+        var element: any = $("ion-searchbar > div > input").last();
+        element.focus();
+        console.log(element);
+        this.query = "";
+      }, 500);
+    })
   }
 
   total() {

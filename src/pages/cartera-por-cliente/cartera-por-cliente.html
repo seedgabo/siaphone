@@ -34,6 +34,12 @@
           <b color="primary" ion-text>Dias:</b> <span item-right>{{ cliente.dias }}</span>
         </ion-item>
         <ion-item>
+          <b color="primary" ion-text>Neto:</b> <span item-right> {{cliente.neto ? 'SI' : 'NO' }}</span>
+        </ion-item>
+        <ion-item>
+          <b color="primary" ion-text>Flete:</b> <span item-right>{{ cliente.flete | currency:'USD':true }}</span>
+        </ion-item>
+        <ion-item>
           <b color="primary" ion-text>Valor:</b> <span item-right>{{ cliente.VALOR | currency:'USD':true }}</span>
         </ion-item>
         <ion-item>
@@ -60,8 +66,8 @@
         <ion-item>
           <b color="primary" ion-text>Dias:</b> <span item-right>{{ (cliente.dias) }}</span>
         </ion-item>
-        <ion-item *ngIf="cliente.neto == '1'">
-          <b color="primary" ion-text>Neto:</b> <span item-right> SI </span>
+        <ion-item>
+          <b color="primary" ion-text>Neto:</b> <span item-right> {{cliente.neto ? 'SI' : 'NO' }}</span>
         </ion-item>
         <ion-item>
           <b color="primary" ion-text>Flete:</b> <span item-right>{{ cliente.flete | currency:'USD':true }}</span>

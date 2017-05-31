@@ -182,7 +182,7 @@ export class CarritoPage {
   totalCantidad() {
     var total = 0;
     this.api.carrito.items.forEach((item) => {
-      total += item.cantidad;
+      total += parseInt(item.cantidad);
     });
     return total;
   }

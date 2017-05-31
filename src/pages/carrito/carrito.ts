@@ -49,6 +49,22 @@ export class CarritoPage {
   }
 
   clearCarrito() {
+    this.alert.create({
+      title: "Esta seguro que desea limpiar el carrito",
+      buttons: [
+        {
+          text: 'Si',
+          handler: () => { this._clearCarrito() }
+        },
+        {
+          text: 'No',
+          handler: () => { }
+        }
+      ]
+    }).present();
+  }
+
+  _clearCarrito() {
     if (!this.api.carrito) {
       return;
     }
@@ -160,6 +176,13 @@ export class CarritoPage {
     var total = 0;
     this.api.carrito.items.forEach((item) => {
       total += item.cantidad * item.VAL_REF;
+    });
+    return total;
+  }
+  totalCantidad() {
+    var total = 0;
+    this.api.carrito.items.forEach((item) => {
+      total += item.cantidad;
     });
     return total;
   }

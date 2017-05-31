@@ -23,7 +23,7 @@
     <ion-item-sliding *ngFor="let item of api.carrito.items; let i=index">
       <ion-item>
         {{ item.NOM_REF }}
-        <p><b>Cantidad:</b> {{ item.cantidad}}</p>
+        <p><b>Cantidad:</b> {{ item.cantidad}} <small>(item.existencia)</small></p>
         <p><b>Precio:</b> {{ item.VAL_REF}}</p>
         <p>{{item.COD_REF}}</p>
         <ion-badge item-right>{{(item.cantidad * item.VAL_REF | currency:"USD":true) }}</ion-badge>
@@ -40,13 +40,13 @@
       </ion-item-options>
       <ion-item-options side="left">
         <button ion-button *ngIf="api.user.COD_CLI == '' || api.user.COD_CLI == null " (click)="cambiarPrecio(item)">
-                    <ion-icon name="cash"></ion-icon>
-                    Precio
-                </button>
+            <ion-icon name="cash"></ion-icon>
+            Precio
+        </button>
         <button ion-button (click)="cambiarCantidad(item)">
-                    <ion-icon name="grid"></ion-icon>
-                    Cantidad
-                </button>
+            <ion-icon name="grid"></ion-icon>
+            Cantidad
+        </button>
       </ion-item-options>
     </ion-item-sliding>
   </ion-list>
@@ -54,7 +54,8 @@
 <ion-footer>
   <ion-toolbar>
     <div *ngIf="api.prefs.verTotal">
-      <b> Total: </b> {{ total() | currency:'USD':true }}
+      <b> Total: </b> {{ total() | currency:'USD':true }} <br>
+      <b> Cantidad: </b> {{ totalCantidad() | currency:'USD':true }}
     </div>
   </ion-toolbar>
   <ion-grid>

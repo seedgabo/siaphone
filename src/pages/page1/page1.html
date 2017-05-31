@@ -1,65 +1,67 @@
 <ion-header>
-	<ion-navbar color="primary">
-	<button ion-button menuToggle>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-		<ion-title>Home</ion-title>
-		<ion-buttons end>
-			<button ion-button icon-only (click)="getDataOffline()">
-			<ion-icon name="sync"></ion-icon>
-		</button>
+    <ion-title>Home</ion-title>
+    <ion-buttons start>
+      <button ion-button icon-only (click)="getDataOffline()">
+			  <ion-icon name="sync"></ion-icon>
+		  </button>
+    </ion-buttons>
+    <ion-buttons end>
 
-			<button ion-button icon-only (click)="logout()">
+      <button ion-button icon-only (click)="logout()">
 			<ion-icon name="log-out"></ion-icon>
 		</button>
-		</ion-buttons>
-	</ion-navbar>
+    </ion-buttons>
+  </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-	<ion-card>
+  <ion-card>
 
-		<ion-item>
-			<ion-label>Empresa</ion-label>
-			<ion-select [(ngModel)]="api.empresa" (ngModelChange)="api.setEmpresaSelected($event)">
-				<ion-option *ngFor="let empresa of api.empresas" value="{{empresa.id}}"> {{empresa.nombre}}</ion-option>
-			</ion-select>
-		</ion-item>
-		<button ion-button color="primary" menuToggle="right" block outline>
-			Cliente: 
+    <ion-item>
+      <ion-label>Empresa</ion-label>
+      <ion-select [(ngModel)]="api.empresa" (ngModelChange)="api.setEmpresaSelected($event)">
+        <ion-option *ngFor="let empresa of api.empresas" value="{{empresa.id}}"> {{empresa.nombre}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <button ion-button color="primary" menuToggle="right" block outline>
+			Cliente:
 			{{ api.cliente ? api.cliente.NOM_TER :'Seleccionar Cliente'}}
 		</button>
-	</ion-card>
+  </ion-card>
 
-	<hr>
-	<ion-card>
-		<ion-list>
-			<ion-list-header>
-				<ion-icon name="cart" item-left></ion-icon>
-				Carritos
-			</ion-list-header>
-			<ion-item-sliding *ngFor="let carrito of api.getCarritos(); let i=index">
-				<button ion-item (click)="setCarrito(carrito)" [color]="api.carrito  && carrito == api.carrito ? 'primary' : ''">
+  <hr>
+  <ion-card>
+    <ion-list>
+      <ion-list-header>
+        <ion-icon name="cart" item-left></ion-icon>
+        Carritos
+      </ion-list-header>
+      <ion-item-sliding *ngFor="let carrito of api.getCarritos(); let i=index">
+        <button ion-item (click)="setCarrito(carrito)" [color]="api.carrito  && carrito == api.carrito ? 'primary' : ''">
 				{{ cliente_collection()[carrito.cliente_id].NOM_TER }}
 				<ion-badge item-right>{{ carrito.items.length }}</ion-badge>
 			</button>
-				<ion-item-options side="right">
-					<button ion-button color="danger" icon-only (click)="api.deleteCarrito(i)">
+        <ion-item-options side="right">
+          <button ion-button color="danger" icon-only (click)="api.deleteCarrito(i)">
 					<ion-icon name="trash"></ion-icon>
 				</button>
-				</ion-item-options>
-			</ion-item-sliding>
-		</ion-list>
-	</ion-card>
-	<ion-fab bottom right>
-		<button ion-fab color="secondary" *ngIf="api.cliente" (click)="api.createCarrito(api.cliente.id)" icon-only>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+  </ion-card>
+  <ion-fab bottom right>
+    <button ion-fab color="secondary" *ngIf="api.cliente" (click)="api.createCarrito(api.cliente.id)" icon-only>
 		<ion-icon name="cart"></ion-icon>
 	</button>
 
-	</ion-fab>
+  </ion-fab>
 </ion-content>
 <ion-footer>
-	<ion-toolbar style="text-align: right">
-		<b>Ultima Modificación: </b> {{ last_update_data | amTimeAgo }}
-	</ion-toolbar>
+  <ion-toolbar style="text-align: right">
+    <b>Ultima Modificación: </b> {{ last_update_data | amTimeAgo }}
+  </ion-toolbar>
 </ion-footer>

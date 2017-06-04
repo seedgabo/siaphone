@@ -28,12 +28,13 @@ export class Page3 {
 
 
   ionViewDidEnter() {
-    // window.setTimeout(() => {
-    //   var element: any = $("ion-searchbar > div > input").last();
-    //   element.focus();
-    //   console.log(element);
-    //   this.query = "";
-    // }, 300);
+    window.setTimeout(() => {
+      var element: any = $("ion-searchbar > div > input").last();
+      element.focus();
+      console.log(element);
+      this.query = "";
+      this.getProductos();
+    }, 300);
     if (this.platform.is('android')) {
       this.photolibrary.requestAuthorization().then(() => {
         console.log(this.photolibrary.getAlbums());
@@ -41,7 +42,6 @@ export class Page3 {
         console.error(err);
       });
     }
-    this.getProductos();
   }
 
   getProductos(entrar = true) {

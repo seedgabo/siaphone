@@ -12,6 +12,7 @@ import { Api } from "../providers/api";
 import { CarteraPage } from "../pages/cartera/cartera";
 import { CodePush } from "@ionic-native/code-push";
 import { Carritos } from "../pages/carritos/carritos";
+import { Page3 } from "../pages/page3/page3";
 
 @Component({
   templateUrl: 'app.html'
@@ -38,6 +39,7 @@ export class MyApp {
     this.pages = [
       { title: 'Home', component: Page1, icon: "home", disabled: false },
       { title: 'Productos', component: Page2, icon: 'pricetags', disabled: true },
+      { title: 'Catalogo', component: Page3, icon: 'photos', disabled: true },
       { title: 'Carrito', component: CarritoPage, icon: 'cart', disabled: true },
       // { title: 'Galeria', component: Galeria, icon: 'photos', disabled: false, beta: true },
       { title: 'Cartera', component: CarteraPage, icon: 'briefcase', disabled: false },

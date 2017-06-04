@@ -8,10 +8,10 @@ import { ItemDetailsPage } from "../item-details/item-details";
 declare var cordova: any;
 declare var window: any;
 @Component({
-  selector: 'page-page2',
-  templateUrl: 'page2.html'
+  selector: 'page-page3',
+  templateUrl: 'page3.html'
 })
-export class Page2 {
+export class Page3 {
   index: number = 0;
   actualPage: number = 1;
   currentPage: number = 0;
@@ -21,20 +21,19 @@ export class Page2 {
   query = "";
   productos: Array<any> = [{}];
   loader: Loading;
-  vista = 'lista';
+  vista = 'cards';
   constructor(public platform: Platform, public nav: NavController, public navParams: NavParams, public api: Api, public loading: LoadingController, public alert: AlertController, public actionsheet: ActionSheetController, public photolibrary: PhotoLibrary, public transfer: Transfer) {
     window.photolibrary = photolibrary;
   }
 
 
   ionViewDidEnter() {
-    window.setTimeout(() => {
-      var element: any = $("ion-searchbar > div > input").last();
-      element.focus();
-      console.log(element);
-      this.query = "";
-      this.getProductos();
-    }, 300);
+    // window.setTimeout(() => {
+    //   var element: any = $("ion-searchbar > div > input").last();
+    //   element.focus();
+    //   console.log(element);
+    //   this.query = "";
+    // }, 300);
     if (this.platform.is('android')) {
       this.photolibrary.requestAuthorization().then(() => {
         console.log(this.photolibrary.getAlbums());
@@ -42,6 +41,7 @@ export class Page2 {
         console.error(err);
       });
     }
+    this.getProductos();
   }
 
   getProductos(entrar = true) {

@@ -31,6 +31,7 @@ import { CDVPhotoLibraryPipe } from './cdvphotolibrary.pipe.ts';
 import Raven from 'raven-js';
 import * as moment from 'moment';
 import 'moment/min/locales';
+import { Page3 } from "../pages/page3/page3";
 moment.locale("es");
 Raven
   .config('https://71ecc607247f4d8c83a76b7714f5faf2@sentry.io/165640')
@@ -48,6 +49,7 @@ export class RavenErrorHandler implements ErrorHandler {
     LoginPage,
     Page1,
     Page2,
+    Page3,
     ItemDetailsPage,
     CarritoPage,
     Carritos,
@@ -70,6 +72,7 @@ export class RavenErrorHandler implements ErrorHandler {
     LoginPage,
     Page1,
     Page2,
+    Page3,
     ItemDetailsPage,
     CarritoPage,
     Carritos,

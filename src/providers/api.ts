@@ -87,6 +87,12 @@ export class Api {
     console.log('Empresa ' + empresa + ' seleccionada');
   }
 
+  getEmpresaSelected() {
+    return this.empresas.find((emp) => {
+      return emp.id == this.empresa;
+    })
+  }
+
 
   getClientes() {
     let headers = this.setHeaders();

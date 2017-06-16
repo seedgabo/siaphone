@@ -167,8 +167,8 @@ export class Page2 {
   }
 
   saveAllAlbum() {
-    if (this.index < this.api.productos.length) {
-      this.saveImage(this.api.productos[this.index++]);
+    if (this.index < this.productos.length) {
+      this.saveImage(this.productos[this.index++]);
       this.loader.setContent("Descarando imagenes " + (this.index + 1) + " de " + this.productos.length);
     }
     else {
@@ -190,7 +190,7 @@ export class Page2 {
       true,
     ).then((entry) => {
       console.log(entry.toURL());
-      this.photolibrary.saveImage(entry.toURL(), this.api.empresas[this.api.empresa].nombre, { quality: 50 })
+      this.photolibrary.saveImage(entry.toURL(), this.api.getEmpresaSelected().nombre, { quality: 50 })
         .then((item) => {
           console.log(item);
           this.saveAllAlbum();

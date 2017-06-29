@@ -1,6 +1,5 @@
 {
   "name": "siaphone",
   "app_id": "80b77ccd",
-  "v2": true,
-  "typescript": true
+  "type": "ionic-angular"
 }

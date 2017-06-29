@@ -1,5 +1,5 @@
-import {PhotoLibrary} from '@ionic-native/photo-library';
-import { Component } from '@angular/core';
+import { PhotoLibrary } from '@ionic-native/photo-library';
+import { Component, NgZone } from '@angular/core';
 import { Platform, ViewController, AlertController, ToastController, NavController, NavParams } from 'ionic-angular';
 import { Api } from "../../providers/api";
 import { Transfer } from '@ionic-native/transfer';
@@ -10,15 +10,21 @@ declare var cordova;
 })
 export class ItemDetailsPage {
 	producto: any = {}
-	pedidos = 1;
+	pedidos: number = 1;
 	loader = false;
 	constructor(public platform: Platform, public navCtrl: NavController, public navParams: NavParams,
 		public api: Api, public alert: AlertController, public toast: ToastController, public transfer: Transfer,
-		public viewctrl: ViewController,public photolibrary:PhotoLibrary) {
+		public viewctrl: ViewController, public photolibrary: PhotoLibrary, public zone: NgZone) {
 		this.producto = this.navParams.get("producto");
 		var cantidad = this.navParams.get("cantidad");
-		if(cantidad != undefined){
+		if (cantidad != undefined) {
 			this.pedidos = cantidad;
+		} else {
+			this.api.storage.get("agregando-" + this.api.empresa).then((value) => {
+				if (value != undefined) {
+					this.pedidos = parseInt(value);
+				}
+			})
 		}
 	}
 
@@ -64,7 +70,7 @@ export class ItemDetailsPage {
 	}
 
 	imagenLocal(producto: any) {
-		if(this.platform.is("cordova") && !this.api.prefs.verImgOffline) {
+		if (this.platform.is("cordova") && !this.api.prefs.verImgOffline) {
 			return cordova.file.externalApplicationStorageDirectory + this.api.empresa + "/productos/" + producto.COD_REF.trim() + ".jpg";
 		}
 		else {
@@ -84,18 +90,29 @@ export class ItemDetailsPage {
 			true,
 		).then((entry) => {
 			console.log(entry.toURL());
-			this.photolibrary.saveImage(entry.toURL(),this.api.empresas[this.api.empresa].nombre,{quality:50})
-			.then((item)=>{
-				console.log(item);
-				this.toast.create({duration:2500, message:"Imagen Guardada", position: "top"}).present();
-				this.loader = false;
-			})
-			.catch((err)=>{
-				console.error(err);
-			});
+			this.photolibrary.saveImage(entry.toURL(), this.api.empresas[this.api.empresa].nombre, { quality: 50 })
+				.then((item) => {
+					console.log(item);
+					this.toast.create({ duration: 2500, message: "Imagen Guardada", position: "top" }).present();
+					this.loader = false;
+				})
+				.catch((err) => {
+					console.error(err);
+				});
 		}).catch((err) => {
 			this.loader = false;
 			console.error(err);
+		});
+	}
+
+	pedidoAdd() {
+		this.zone.run(() => {
+			this.pedidos++;
+		})
+	}
+	pedidoSub() {
+		this.zone.run(() => {
+			this.pedidos--;
 		});
 	}
 

@@ -8,10 +8,10 @@ import { ItemDetailsPage } from "../item-details/item-details";
 declare var cordova: any;
 declare var window: any;
 @Component({
-  selector: 'page-page2',
-  templateUrl: 'page2.html'
+  selector: 'page-page3',
+  templateUrl: 'page3.html'
 })
-export class Page2 {
+export class Page3 {
   index: number = 0;
   actualPage: number = 1;
   currentPage: number = 0;
@@ -21,7 +21,7 @@ export class Page2 {
   query = "";
   productos: Array<any> = [{}];
   loader: Loading;
-  vista = 'lista';
+  vista = 'cards';
   constructor(public platform: Platform, public nav: NavController, public navParams: NavParams, public api: Api, public loading: LoadingController, public alert: AlertController, public actionsheet: ActionSheetController, public photolibrary: PhotoLibrary, public transfer: Transfer) {
     window.photolibrary = photolibrary;
   }
@@ -167,8 +167,8 @@ export class Page2 {
   }
 
   saveAllAlbum() {
-    if (this.index < this.productos.length) {
-      this.saveImage(this.productos[this.index++]);
+    if (this.index < this.api.productos.length) {
+      this.saveImage(this.api.productos[this.index++]);
       this.loader.setContent("Descarando imagenes " + (this.index + 1) + " de " + this.productos.length);
     }
     else {
@@ -190,7 +190,7 @@ export class Page2 {
       true,
     ).then((entry) => {
       console.log(entry.toURL());
-      this.photolibrary.saveImage(entry.toURL(), this.api.getEmpresaSelected().nombre, { quality: 50 })
+      this.photolibrary.saveImage(entry.toURL(), this.api.empresas[this.api.empresa].nombre, { quality: 50 })
         .then((item) => {
           console.log(item);
           this.saveAllAlbum();

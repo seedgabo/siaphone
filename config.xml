@@ -79,7 +79,8 @@
     <feature name="http://api.phonegap.com/1.0/device" />
     <feature name="http://api.phonegap.com/1.0/network" />
     <icon src="resources/ios/icon/icon-small@3x.png" />
-    <plugin name="cordova-plugin-code-push" spec="~1.9.3-beta" />
+    <plugin name="code-push" spec="~1.9.0-beta" />
+    <plugin name="cordova-plugin-code-push" spec="^1.9.3-beta" />
     <plugin name="cordova-plugin-console" spec="1.0.5" />
     <plugin name="cordova-plugin-device" spec="1.1.4" />
     <plugin name="cordova-plugin-file-transfer" spec="~1.6.2" />

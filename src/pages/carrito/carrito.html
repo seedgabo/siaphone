@@ -1,75 +1,74 @@
 <ion-header>
 
-  <ion-navbar color="primary">
-    <button ion-button menuToggle>
+    <ion-navbar color="primary">
+        <button ion-button menuToggle>
      	 <ion-icon name="menu"></ion-icon>
     	</button>
-    <ion-title>Carrito</ion-title>
-    <ion-buttons end>
-      <button ion-button (click)="cambiarAgregando()">{{agregando}}</button>
-    </ion-buttons>
-  </ion-navbar>
-  <ion-toolbar>
-    <ion-searchbar [(ngModel)]="query" type="search" (keyup.enter)="onInput($event)" placeholder="Codigo de producto aqui.."
-      debounce="0"></ion-searchbar>
-  </ion-toolbar>
+        <ion-title>Carrito</ion-title>
+        <ion-buttons end>
+            <button ion-button (click)="cambiarAgregando()">{{agregando}}</button>
+        </ion-buttons>
+    </ion-navbar>
+    <ion-toolbar>
+        <ion-searchbar [(ngModel)]="query" type="search" (keyup.enter)="onInput($event)" placeholder="Codigo de producto aqui.." debounce="0"></ion-searchbar>
+    </ion-toolbar>
 
 </ion-header>
 
 
 <ion-content padding>
-  <h4>{{api.cliente.NOM_TER}}</h4>
-  <ion-list *ngIf="api.carrito">
-    <ion-item-sliding *ngFor="let item of api.carrito.items; let i=index">
-      <ion-item>
-        {{ item.NOM_REF }}
-        <p><b>Cantidad:</b> {{ item.cantidad}} <small>({{item.existencia}})</small></p>
-        <p><b>Precio:</b> {{ item.VAL_REF}}</p>
-        <p>{{item.COD_REF}}</p>
-        <ion-badge item-right>{{(item.cantidad * item.VAL_REF | currency:"USD":true) }}</ion-badge>
+    <h4>{{api.cliente.NOM_TER}}</h4>
+    <ion-list *ngIf="api.carrito">
+        <ion-item-sliding *ngFor="let item of api.carrito.items.reverse(); let i=index">
+            <ion-item>
+                {{ item.NOM_REF }}
+                <p><b>Cantidad:</b> {{ item.cantidad}} <small>({{item.existencia}})</small></p>
+                <p><b>Precio:</b> {{ item.VAL_REF}}</p>
+                <p>{{item.COD_REF}}</p>
+                <ion-badge item-right>{{(item.cantidad * item.VAL_REF | currency:"USD":true) }}</ion-badge>
 
-      </ion-item>
-      <ion-item-options side="right">
-        <button ion-button color="primary" icon-only (click)="editar(item)">
+            </ion-item>
+            <ion-item-options side="right">
+                <button ion-button color="primary" icon-only (click)="editar(item)">
 					<ion-icon name="create"></ion-icon>
 				</button>
 
-        <button ion-button color="danger" icon-only (click)="eliminar(item,i)">
+                <button ion-button color="danger" icon-only (click)="eliminar(item,i)">
 					<ion-icon name="trash"></ion-icon>
 				</button>
-      </ion-item-options>
-      <ion-item-options side="left">
-        <button ion-button *ngIf="api.user.COD_CLI == '' || api.user.COD_CLI == null " (click)="cambiarPrecio(item)">
+            </ion-item-options>
+            <ion-item-options side="left">
+                <button ion-button *ngIf="api.user.COD_CLI == '' || api.user.COD_CLI == null " (click)="cambiarPrecio(item)">
             <ion-icon name="cash"></ion-icon>
             Precio
         </button>
-        <button ion-button (click)="cambiarCantidad(item)">
+                <button ion-button (click)="cambiarCantidad(item)">
             <ion-icon name="grid"></ion-icon>
             Cantidad
         </button>
-      </ion-item-options>
-    </ion-item-sliding>
-  </ion-list>
+            </ion-item-options>
+        </ion-item-sliding>
+    </ion-list>
 </ion-content>
 <ion-footer>
-  <ion-toolbar>
-    <div *ngIf="api.prefs.verTotal">
-      <b> Total: </b> {{ total() | currency:'USD':true }} <br>
-      <b> Cantidad: </b> {{ totalCantidad() }}
-    </div>
-  </ion-toolbar>
-  <ion-grid>
-    <ion-row>
-      <ion-col>
-        <button ion-button outline color="dark" full (click)="clearCarrito()">
+    <ion-toolbar>
+        <div *ngIf="api.prefs.verTotal">
+            <b> Total: </b> {{ total() | currency:'USD':true }} <br>
+            <b> Cantidad: </b> {{ totalCantidad() }}
+        </div>
+    </ion-toolbar>
+    <ion-grid>
+        <ion-row>
+            <ion-col>
+                <button ion-button outline color="dark" full (click)="clearCarrito()">
 					Limpiar
 				</button>
-      </ion-col>
-      <ion-col>
-        <button ion-button color="primary" full (click)="procesarCarrito()" [disabled]="api.carrito.items.length == 0">
+            </ion-col>
+            <ion-col>
+                <button ion-button color="primary" full (click)="procesarCarrito()" [disabled]="api.carrito.items.length == 0">
 					Procesar
 				</button>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
 </ion-footer>

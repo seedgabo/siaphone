@@ -169,7 +169,7 @@ export class Page2 {
   saveAllAlbum() {
     if (this.index < this.productos.length) {
       this.saveImage(this.productos[this.index++]);
-      this.loader.setContent("Descarando imagenes " + (this.index + 1) + " de " + this.productos.length);
+      this.loader.setContent("Descargando imagenes " + (this.index + 1) + " de " + this.productos.length);
     }
     else {
       this.index++;

@@ -1,5 +1,8 @@
 {
   "name": "siaphone",
   "app_id": "80b77ccd",
-  "type": "ionic-angular"
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
 }

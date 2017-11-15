@@ -8,7 +8,8 @@
     "build": "ionic-app-scripts build",
     "ionic:build": "ionic-app-scripts build",
     "ionic:serve": "ionic-app-scripts serve",
-    "release-android": "ionic cordova build android --prod && code-push release-cordova siaphone android -d android --mandatory"
+    "release-android": "ionic cordova build android --prod && code-push release-cordova siaphone android -d android --mandatory",
+    "build-android": "cordova build android --release -- --keystore='./siaphone.jks' --storePassword=gab23gab --alias=siaphone"
   },
   "dependencies": {
     "@angular/common": "4.0.0",

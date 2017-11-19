@@ -55,7 +55,7 @@ export class Page3 {
             return prod.COD_REF.toLowerCase().indexOf(this.query.toLowerCase()) > -1 || prod.NOM_REF.toLowerCase().indexOf(this.query.toLowerCase()) > -1;
           }
         }
-      });
+      }).reverse();
       if (this.productos.length == 1 && entrar) {
         this.verProducto(this.productos[0]);
       }
@@ -103,7 +103,7 @@ export class Page3 {
     else {
       let response = this.productos.filter((prod) => {
         return prod.COD_REF.trim().toLowerCase().indexOf(this.query.toLowerCase()) > -1 || prod.NOM_REF.trim().toLowerCase().indexOf(this.query.toLowerCase()) > -1;
-      });
+      }).reverse();
       if (response.length == 1) {
         this.verProducto(response[0]);
       }

@@ -187,6 +187,9 @@ export class CarritoPage {
     return total;
   }
 
+  carrito() {
+    return this.api.carrito.reverse()
+  }
 
   eliminar(producto, index) {
     this.api.removeFromCart(index);

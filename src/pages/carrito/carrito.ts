@@ -1,16 +1,17 @@
 import { ItemDetailsPage } from '../item-details/item-details';
 import { Component, NgZone } from '@angular/core';
 import $ from 'jquery';
-import { ModalController, ToastController, LoadingController, AlertController, NavController, NavParams } from 'ionic-angular';
+import { ModalController, ToastController, LoadingController, AlertController, NavController, NavParams, ActionSheetController } from 'ionic-angular';
 import { Api } from "../../providers/api";
 @Component({
   selector: 'page-carrito',
   templateUrl: 'carrito.html'
 })
 export class CarritoPage {
+  precio_fijado: any = 0;
   query = "";
   agregando = 0;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public api: Api, public alert: AlertController, public zone: NgZone, public loading: LoadingController, public toast: ToastController, public modal: ModalController) { }
+  constructor(public navCtrl: NavController, public navParams: NavParams, public api: Api, public alert: AlertController, public zone: NgZone, public loading: LoadingController, public toast: ToastController, public modal: ModalController, public actionsheet: ActionSheetController) { }
 
   ionViewDidLoad() {
     window.setTimeout(() => {
@@ -90,7 +91,7 @@ export class CarritoPage {
         this.preguntarCantidad(producto);
       }
       else {
-        this.toaster(this.api.addToCart(producto, this.agregando, true));
+        this.toaster(this.api.addToCart(producto, this.agregando, true, this.precio_fijado));
         window.setTimeout(() => {
           var element: any = $("ion-searchbar > div > input").last();
           element.focus();
@@ -156,7 +157,7 @@ export class CarritoPage {
         {
           text: "Agregar",
           handler: (data) => {
-            this.toaster(this.api.addToCart(producto, parseInt(data.cantidad), true));
+            this.toaster(this.api.addToCart(producto, parseInt(data.cantidad), true, this.precio_fijado));
           }
         }
       ]
@@ -179,6 +180,7 @@ export class CarritoPage {
     });
     return total;
   }
+
   totalCantidad() {
     var total = 0;
     this.api.carrito.items.forEach((item) => {
@@ -187,8 +189,8 @@ export class CarritoPage {
     return total;
   }
 
-  carrito() {
-    return this.api.carrito.reverse()
+  reverse() {
+    return this.api.carrito.items = this.api.carrito.items.reverse();
   }
 
   eliminar(producto, index) {
@@ -257,6 +259,52 @@ export class CarritoPage {
       ]
     });
     prompt.present();
+  }
+
+  fijarPrecio() {
+    var alert = this.alert.create({
+      title: 'Precio',
+      message: "Establecer en 0 para tomar el precio original",
+      inputs: [{
+        placeholder: "Precio Fijado",
+        name: "precio",
+        type: 'text',
+        value: this.precio_fijado,
+      }],
+      buttons: [{
+        text: "OK",
+        handler: (data) => {
+          this.precio_fijado = data.precio;
+        }
+      }, "Cancelar"]
+    })
+    alert.present()
+
+  }
+
+  actions() {
+    var sheet = this.actionsheet.create({
+      title: "Acciones"
+    });
+
+    sheet.addButton({
+      text: "Invertir Carrito",
+      handler: () => {
+        this.reverse();
+      }
+    });
+
+    sheet.addButton({
+      text: "Fijar Precio",
+      handler: () => {
+        this.fijarPrecio();
+      }
+    });
+
+
+
+    sheet.present();
+
   }
 
 

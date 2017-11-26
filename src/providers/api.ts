@@ -166,7 +166,7 @@ export class Api {
     });
   }
 
-  addToCart(producto, cantidad: number, sumar = false) {
+  addToCart(producto, cantidad: number, sumar = false, precio = 0) {
     producto.neto = producto.neto ? 1 : 0;
     producto.observacion = producto.observacion != undefined ? producto.observacion : '';
     var item = {
@@ -175,7 +175,7 @@ export class Api {
       NOM_REF: producto.NOM_REF,
       NOM_TER: producto.NOM_TER,
       empresa_id: this.empresa,
-      VAL_REF: parseInt(producto.VAL_REF),
+      VAL_REF: precio > 0 ? precio : parseInt(producto.VAL_REF),
       existencia: producto.EXISTENCIA,
       cantidad: cantidad,
       neto: producto.neto,

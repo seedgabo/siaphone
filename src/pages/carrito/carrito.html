@@ -7,6 +7,9 @@
     <ion-title>Carrito</ion-title>
     <ion-buttons end>
       <button ion-button (click)="cambiarAgregando()">{{agregando}}</button>
+      <button ion-button (click)="actions()" icon-only>
+        <ion-icon name="more"></ion-icon>
+      </button>
     </ion-buttons>
   </ion-navbar>
   <ion-toolbar>
@@ -17,10 +20,10 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
   <h4>{{api.cliente.NOM_TER}}</h4>
   <ion-list *ngIf="api.carrito">
-    <ion-item-sliding *ngFor="let item of  carrito(); let i=index">
+    <ion-item-sliding *ngFor="let item of  api.carrito.items; let i=index">
       <ion-item>
         {{ item.NOM_REF }}
         <p>
@@ -57,11 +60,22 @@
 </ion-content>
 <ion-footer>
   <ion-toolbar>
-    <div *ngIf="api.prefs.verTotal">
-      <b> Total: </b> {{ total() | currency:'USD':true }}
-      <br>
-      <b> Cantidad: </b> {{ totalCantidad() }}
-    </div>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <div *ngIf="api.prefs.verTotal">
+            <b> Total: </b> {{ total() | currency:'USD':true }}
+            <br>
+            <b> Cantidad: </b> {{ totalCantidad() }}
+          </div>
+        </ion-col>
+        <ion-col *ngIf="precio_fijado > 0">
+          <b>Precio Fijado</b>
+          {{ precio_fijado | currency:'USD':true }}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
   </ion-toolbar>
   <ion-grid>
     <ion-row>

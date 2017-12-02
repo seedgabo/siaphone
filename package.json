@@ -9,6 +9,7 @@
     "ionic:build": "ionic-app-scripts build",
     "ionic:serve": "ionic-app-scripts serve",
     "release-android": "ionic cordova build android --prod && code-push release-cordova siaphone android -d android --mandatory",
+    "release-ios": "ionic cordova build ios --prod && code-push release-cordova siaphone ios -d ios --mandatory",
     "build-android": "cordova build android --release -- --keystore='./siaphone.jks' --storePassword=gab23gab --alias=siaphone"
   },
   "dependencies": {
@@ -29,29 +30,33 @@
     "@ionic-native/transfer": "^3.4.4",
     "@ionic/storage": "2.0.1",
     "angular2-moment": "^1.3.3",
-    "code-push": "~1.9.0-beta",
+    "code-push": "^2.0.1-beta",
     "cordova-android": "^6.2.3",
     "cordova-browser": "^4.1.0",
     "cordova-plugin-code-push": "^1.10.0-beta",
-    "cordova-plugin-console": "1.0.5",
-    "cordova-plugin-device": "1.1.4",
-    "cordova-plugin-file-transfer": "~1.6.2",
-    "cordova-plugin-splashscreen": "~4.0.1",
-    "cordova-plugin-statusbar": "2.2.1",
+    "cordova-plugin-console": "^1.0.5",
+    "cordova-plugin-device": "^1.1.7",
+    "cordova-plugin-dialogs": "^1.3.4",
+    "cordova-plugin-file": "^5.0.0",
+    "cordova-plugin-file-transfer": "^1.7.0",
+    "cordova-plugin-splashscreen": "^4.0.3",
+    "cordova-plugin-statusbar": "^2.2.1",
     "cordova-plugin-whitelist": "^1.3.3",
-    "cordova-sqlite-storage": "~2.0.2",
+    "cordova-plugin-zip": "^3.1.0",
+    "cordova-sqlite-storage": "^2.0.4",
     "ionic-angular": "3.0.1",
-    "ionic-plugin-keyboard": "~2.2.1",
+    "ionic-plugin-keyboard": "^2.2.1",
     "ionicons": "3.0.0",
     "jquery": "^3.2.1",
     "lodash": "^4.17.4",
     "moment": "^2.18.1",
-    "phonegap-plugin-barcodescanner": "~6.0.6",
+    "phonegap-plugin-barcodescanner": "^6.0.8",
     "photoswipe": "^4.1.1",
     "raven-js": "^3.15.0",
     "rxjs": "5.1.1",
     "sw-toolbox": "3.4.0",
-    "zone.js": "^0.8.4"
+    "zone.js": "^0.8.4",
+    "cordova-ios": "~4.3.1"
   },
   "devDependencies": {
     "@ionic/app-scripts": "1.3.0",
@@ -79,12 +84,15 @@
       "cordova-plugin-statusbar": {},
       "cordova-sqlite-storage": {},
       "ionic-plugin-keyboard": {},
-      "phonegap-plugin-barcodescanner": {},
+      "phonegap-plugin-barcodescanner": {
+        "CAMERA_USAGE_DESCRIPTION": " "
+      },
       "code-push": {},
       "cordova-plugin-whitelist": {}
     },
     "platforms": [
-      "android"
+      "android",
+      "ios"
     ]
   }
 }

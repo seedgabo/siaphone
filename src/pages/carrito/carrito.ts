@@ -75,16 +75,17 @@ export class CarritoPage {
 
   onInput(ev) {
     let q = this.query;
-    if (this.api.secure_code) {
-      q = q.substring(1, q.length - 1)
-    }
 
-    if (q.length == 0)
-      return;
-    console.log(q);
-    let producto = this.api.productos.find((prod) => {
+    if (q.length == 0) return;
+    let producto;
+    producto = this.api.productos.find((prod) => {
       return prod.empresa_id == this.api.empresa && prod.COD_REF.trim() == q.trim();
     });
+    if (!producto) {
+      producto = this.api.productos.find((prod) => {
+        return prod.empresa_id == this.api.empresa && prod.COD_REF.trim() == q.substring(1, q.length - 1).trim();
+      });
+    }
 
     if (producto) {
       if (this.agregando == 0) {

@@ -67,12 +67,9 @@ export class MyApp {
   clientesbyEmpresa() {
     return this.api.clientes.filter((cliente) => {
       if (cliente.empresa_id == this.api.empresa) {
-        if (this.queryCliente == "") {
-          return true;
-        } else {
-          return cliente.COD_TER.toLowerCase().indexOf(this.queryCliente.toLowerCase()) > -1 || cliente.NOM_TER.toLowerCase().indexOf(this.queryCliente.toLowerCase()) > -1
-        }
+        return cliente.COD_TER.toLowerCase().indexOf(this.queryCliente.toLowerCase()) > -1 || cliente.NOM_TER.toLowerCase().indexOf(this.queryCliente.toLowerCase()) > -1
       };
     });
+
   }
 }

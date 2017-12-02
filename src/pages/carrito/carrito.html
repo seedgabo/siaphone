@@ -23,7 +23,7 @@
 <ion-content>
   <h4>{{api.cliente.NOM_TER}}</h4>
   <ion-list *ngIf="api.carrito">
-    <ion-item-sliding *ngFor="let item of  api.carrito.items; let i=index">
+    <ion-item-sliding *ngFor="let item of  api.carrito.items.reverse(); let i=index">
       <ion-item>
         {{ item.NOM_REF }}
         <p>

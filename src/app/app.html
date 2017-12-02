@@ -9,11 +9,10 @@
 
     <ion-content>
       <ion-list>
-        <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)" [disabled]="p.disabled && !api.carrito">
-		  <ion-icon [name]="p.icon" color="primary" item-left></ion-icon>
-        	{{p.title}}
-			<ion-badge color="primary" item-right *ngIf="p.beta"> BETA</ion-badge>
-      </button>
+        <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)" [disabled]="p.disabled && !api.cliente && !api.cliente.NOM_TER && !api.carrito">
+          <ion-icon [name]="p.icon" color="primary" item-left></ion-icon>
+          {{p.title}}
+        </button>
       </ion-list>
     </ion-content>
 
@@ -25,8 +24,8 @@
           <ion-title>Clientes</ion-title>
           <ion-buttons end>
             <button ion-button icon-only (click)="api.clearCliente()" menuClose="right">
-					<ion-icon name="remove-circle"></ion-icon>
-				</button>
+              <ion-icon name="remove-circle"></ion-icon>
+            </button>
           </ion-buttons>
         </ion-toolbar>
       </ion-header>
@@ -38,9 +37,9 @@
         <ion-list>
           <button menuClose="right" ion-item *ngFor="let cliente of clientesbyEmpresa()" (click)="api.setClienteSelected(cliente)"
             [color]="api.cliente  && cliente.COD_TER == api.cliente.COD_TER ?'primary': ''">
-						<h2>{{cliente.NOM_TER}}</h2>
-						<p>{{cliente.COD_TER}}</p>
-					</button>
+            <h2>{{cliente.NOM_TER}}</h2>
+            <p>{{cliente.COD_TER}}</p>
+          </button>
         </ion-list>
       </ion-content>
 

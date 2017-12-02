@@ -80,12 +80,12 @@ export class Api {
 
 
   setEmpresaSelected(empresa) {
-
     this.storage.set("empresa", empresa);
-    this.empresa = empresa;
-    this.cliente = null;
+    // this.empresa = empresa;
+    // this.cliente = undefined;
     console.log('Empresa ' + empresa + ' seleccionada');
   }
+
 
   getEmpresaSelected() {
     return this.empresas.find((emp) => {
@@ -248,7 +248,7 @@ export class Api {
       index = this.carritos.findIndex((carrito) => {
         return this.carrito == carrito;
       });
-      this.carrito = undefined;
+      this.carrito = null;
     }
 
     // this.carritos[index] = undefined;
